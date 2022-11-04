@@ -1,10 +1,16 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
+import { loginUser } from "../requests/post";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  console.log(email, password);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await loginUser(email, password);
+    return
+  };
 
   return <Box sx={{
     display: "flex",
@@ -33,7 +39,7 @@ const LoginPage = () => {
       <div>
         <TextField variant="outlined" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
       </div>
-      <Button variant="contained" color="info">Login</Button>
+      <Button onClick={handleSubmit} variant="contained" color="info">Login</Button>
     </Box>
   </Box>
 }
