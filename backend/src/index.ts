@@ -1,4 +1,4 @@
-import express from "express";
+import * as express from "express";
 import mongoose from "mongoose";
 
 const app = express();
@@ -7,10 +7,17 @@ const DB_URL = process.env.DB_URL || "mongodb://localhost:27017/test";
 
 mongoose.connect(DB_URL);
 
+require("./models/user");
+
+const routers = [
+  // import routers here
+  require("./routes/public").default,
+]
 
 
-
-
+routers.forEach(router => {
+  app.use(router);
+});
 
 
 // run the server
