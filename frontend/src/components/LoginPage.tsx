@@ -20,7 +20,8 @@ const LoginPage = () => {
           bgcolor: "info.main",
           borderRadius: 5,
           p: 10,
-          justifyContent: "center"
+          justifyContent: "center",
+          gap: 5
         }
       }>
         <Typography variant='h3'>Login</Typography>
