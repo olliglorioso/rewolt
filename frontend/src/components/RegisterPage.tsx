@@ -17,7 +17,9 @@ const RegisterPage = () => {
         maxHeight: 500,
         borderRadius: 5,
         boxShadow: 3,
-        p: 10,
+        py: 10,
+        px: 5,
+        minWidth: 300,
         justifyContent: "center",
         gap: 3
       }
