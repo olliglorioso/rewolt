@@ -5,8 +5,14 @@ const LoginPage = () => {
   return (
     <div>
       <h1>Login page</h1>
-      <TextField />
-      <TextField />
+      <div>
+        <p>Username</p>
+        <TextField label="Username" variant='outlined'/>
+      </div>
+      <div>
+        <p>Password</p>
+        <TextField label="Password" variant="outlined"/>
+      </div>
     </div>
   )
 }
