@@ -32,7 +32,7 @@ const RegisterPage = () => {
         <Typography variant="body1">Password</Typography>
         <TextField variant="outlined" label="Username" fullWidth/>
       </div>
-      <Button variant="contained">Register now</Button>
+      <Button variant="contained" color="info">Register now</Button>
     </Box>
   </Box>
 }
