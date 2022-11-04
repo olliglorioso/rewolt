@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import TextField from '@mui/material/TextField';
 import './App.css'
 
 function App() {
@@ -7,9 +8,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>ReWolt</h1>
-      <p>Brand new modern website to recycle your trash without any effort</p>
-      <p>We will beat some trash out of you!</p>
+      <TextField id="outlined-basic" label="Username" variant="outlined" />
     </div>
   )
 }
