@@ -15,18 +15,18 @@ const RegisterPage = () => {
         flexDirection: "column",
         maxWidth: 400,
         maxHeight: 500,
-        bgcolor: "info.main",
         borderRadius: 5,
+        boxShadow: 3,
         p: 10,
         justifyContent: "center",
         gap: 3
       }
     }>
       <Typography variant="h3">Register here</Typography>
-      <Typography variant="caption">Make the future better</Typography>
+      <Typography variant="caption" align="right">Make the future better now</Typography>
       <div>
-        <Typography variant="body1">Username</Typography>
-        <TextField variant="outlined" label="Username" fullWidth/>
+        <Typography variant="body1">Email</Typography>
+        <TextField variant="outlined" label="Email" fullWidth/>
       </div>
       <div>
         <Typography variant="body1">Password</Typography>
