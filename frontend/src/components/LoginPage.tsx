@@ -1,7 +1,11 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  console.log(email, password);
+
   return <Box sx={{
     display: "flex",
     flexDirection: "row",
@@ -24,12 +28,10 @@ const LoginPage = () => {
     }>
       <Typography variant="h3" align="center">Login</Typography>
       <div>
-        <Typography variant="body1">Email</Typography>
-        <TextField variant="outlined" label="Email" fullWidth/>
+        <TextField variant="outlined" label="Email" fullWidth onChange={e => setEmail(e.target.value)}/>
       </div>
       <div>
-        <Typography variant="body1">Password</Typography>
-        <TextField variant="outlined" label="Username" fullWidth/>
+        <TextField variant="outlined" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
       </div>
       <Button variant="contained" color="info">Login</Button>
     </Box>
