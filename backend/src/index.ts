@@ -12,6 +12,8 @@ mongoose.connect(DB_URL || "");
 
 app.use(cors())
 require("./models/user");
+require("./models/order");
+require("./models/item");
 
 const routers = [
   // import routers here
