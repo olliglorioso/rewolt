@@ -22,7 +22,7 @@ const LoginPage = () => {
         gap: 3
       }
     }>
-      <Typography variant="h3">Login</Typography>
+      <Typography variant="h3" align="center">Login</Typography>
       <div>
         <Typography variant="body1">Email</Typography>
         <TextField variant="outlined" label="Email" fullWidth/>
@@ -31,7 +31,7 @@ const LoginPage = () => {
         <Typography variant="body1">Password</Typography>
         <TextField variant="outlined" label="Username" fullWidth/>
       </div>
-      <Button variant="contained" color="info">Login now</Button>
+      <Button variant="contained" color="info">Login</Button>
     </Box>
   </Box>
 }
