@@ -1,15 +1,40 @@
-import { useState } from 'react'
-import TextField from '@mui/material/TextField';
-import LoginPage from './components/LoginPage';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import React, { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [token, setToken] = useState();
+
+  if (!token) {
+    return <LoginPage/>;
+  }
 
   return (
-    <div className="App">
-      <LoginPage />
-    </div>
-  )
-}
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/users">Users</Link>
+            </li>
+          </ul>
+        </nav>
 
-export default App
+        <Routes>
+          <Route path="" element={<div></div>} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
