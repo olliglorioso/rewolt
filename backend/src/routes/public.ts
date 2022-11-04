@@ -28,7 +28,7 @@ router.post("/api/login", async (req, res) => {
     })
   }
   const token = jwt.sign({ userId: user._id }, JWT_SECRET);
-  res.json({
+  return res.json({
     token,
   });
 });
