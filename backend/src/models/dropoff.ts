@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const dropoffSchema = new mongoose.Schema({
-  friendName: {
+  friendlyName: {
     type: String,
     required: true,
   },

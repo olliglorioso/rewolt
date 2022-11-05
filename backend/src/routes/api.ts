@@ -34,23 +34,30 @@ router.post("/api/order", async (req, res) => {
     category: req.body.category,
   });
   await order.save();
-
-  const delivery = await createDelivery(
-    dropoff.address,
-    "Korkeavuorenkatu 5, 00100 Helsinki",
-    "come fast",
-    {
-      name: req.user.email,
-      phone: req.user.phone,
-    },
-    {
-      name: dropoff.friendName,
-      phone: dropoff.phone,
-    },
-    title,
-    category,
-    order._id.toString()
-  );
+  let delivery;
+  try {
+    delivery = await createDelivery(
+      dropoff.address,
+      "Korkeavuorenkatu 5, 00100 Helsinki",
+      "come fast",
+      {
+        name: req.user.email,
+        phone: req.user.phone,
+      },
+      {
+        name: dropoff.friendlyName,
+        phone: dropoff.phone,
+      },
+      title,
+      category,
+      order._id.toString()
+    );
+  } catch(err){
+    return res.status(400).json({
+      message: "Error creating delivery",
+    });
+  }
+  
   return res.json({
     order,
     delivery

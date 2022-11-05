@@ -21,7 +21,6 @@ const PORT = process.env.PORT || 4000;
 const DB_URL = process.env.DB_URL;
 
 mongoose.connect(DB_URL || "");
-
 app.use(express.json())
 app.use(cors())
 require("./models/user");
