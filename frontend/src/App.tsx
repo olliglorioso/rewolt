@@ -20,9 +20,9 @@ export default function App() {
 
   return (
     <Router>
-      <Box sx={{ display: 'flex' }}>
+      <Box>
         <MenuBar />
-        <Box component="main">
+        <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
           <Toolbar />
           <Routes>
             <Route path="" element={<div></div>} />
