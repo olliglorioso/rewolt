@@ -8,6 +8,7 @@ const NanPage = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        bgcolor: "white",
         maxWidth: 400,
         maxHeight: 500,
         borderRadius: 5,

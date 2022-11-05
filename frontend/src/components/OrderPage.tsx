@@ -74,6 +74,7 @@ const OrderPage = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        bgcolor: "white",
         maxWidth: 800,
         maxHeight: 500,
         borderRadius: 5,

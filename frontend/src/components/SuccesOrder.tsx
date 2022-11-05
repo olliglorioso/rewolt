@@ -10,6 +10,7 @@ const SuccessOrderPage = () => {
         display: "flex",
         flexDirection: "column",
         maxWidth: 400,
+        bgcolor: "white",
         maxHeight: 500,
         borderRadius: 5,
         boxShadow: 3,

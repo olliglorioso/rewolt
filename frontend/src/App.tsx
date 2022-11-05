@@ -28,7 +28,7 @@ export default function App() {
   const tokenExists = token !== "" && token !== undefined;
   return (
     <Router>
-      <Box>
+      <Box sx={{height: "100vh", bgcolor: "lightblue"}}>
         {tokenExists ? <MenuBar /> : <div></div>}
         <Box
           component="main"
