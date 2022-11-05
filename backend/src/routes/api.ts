@@ -3,6 +3,7 @@ import Dropoff from "../models/dropoff";
 import Order from "../models/order";
 import { createDelivery, getFee } from "../lib/wolt";
 import { getDumpLocation } from "../lib/dumplocation";
+import User from "../models/user";
 const router = Router();
 
 router.get("/api/dropoffs", async (req, res) => {
@@ -11,7 +12,77 @@ router.get("/api/dropoffs", async (req, res) => {
   return res.json(dropoffs);
 });
 
-router.post()
+router.post("/api/listing/deliveryprice", async (req, res) => {
+  // get delivery price
+  const { orderId, address } = req.body;
+  const order = await Order.findById(orderId);
+  if (!order) {
+    return res.status(400).json({
+      message: "Order not found",
+    });
+  }
+  const dropoff = await Dropoff.findById(order.dropoff);
+  if (!dropoff) {
+    return res.status(400).json({
+      message: "Dropoff not found",
+    });
+  }
+
+  const fee = await getFee(dropoff.address, address);
+  return res.json({
+    fee,
+  });
+});
+
+router.post("/api/buy", async (req, res): Promise<void> => {
+  // buy
+  const { orderId, address } = req.body;
+  const order = await Order.findById(orderId);
+  if (!order) {
+    res.status(400).json({
+      message: "Order not found",
+    });
+    return;
+  }
+  const dropoff = await Dropoff.findById(order.dropoff);
+  if (!dropoff) {
+    res.status(400).json({
+      message: "Dropoff not found",
+    });
+    return;
+  }
+
+  const seller = await User.findById(order.user);
+
+  if(!seller) {
+    res.status(400).json({
+      message: "Seller not found",
+    });
+    return;
+  }
+  if(!req.user){
+    res.status(400).json({
+      message: "User not found",
+    });
+    return;
+  }
+  await createDelivery(
+    dropoff.address,
+    address,
+    "dunno",
+    {
+      name: seller.email,
+      phone: seller.phone,
+    },
+    {
+      name: req.user.email,
+      phone: req.user.phone,
+    },
+    order.title,
+    order.category,
+    order._id.toString()
+  )
+});
 
 router.post("/api/fee", async (req, res) => {
   const { dropoffId, category } = req.body as {
@@ -68,7 +139,7 @@ router.post("/api/listing", async (req, res) => {
     price,
     status: "pending"
   });
-  await order.save();
+  return await order.save();
 });
 
 router.post("/api/order", async (req, res) => {
@@ -108,7 +179,7 @@ router.post("/api/order", async (req, res) => {
       },
       title,
       category,
-      order._id.toString()
+      ""
     );
   } catch(err){
     return res.status(400).json({
@@ -117,7 +188,6 @@ router.post("/api/order", async (req, res) => {
   }
   
   return res.json({
-    order,
     delivery
   });
 });
