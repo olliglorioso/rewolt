@@ -1,7 +1,46 @@
-import { Box, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Chip, Divider, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Theme, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const categories = ["Electronics", "Batteries", "Textiles", "Rubber", "Other"]
+
+function getStyles(name: string, personName: readonly string[], theme: Theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 const OrderPage = () => {
+  const theme = useTheme()
+  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
+
+  const handleChange = (event: SelectChangeEvent<typeof categoriesSelected>) => {
+    const {
+      target: { value },
+    } = event;
+    setCategoriesSelected(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
+  const clearAll = () => {
+    setCategoriesSelected([])
+  }
+
   return (
     <Box sx={{
       display: "flex",
@@ -14,18 +53,56 @@ const OrderPage = () => {
       {
         display: "flex",
         flexDirection: "column",
-        maxWidth: 400,
+        maxWidth: 800,
         maxHeight: 500,
         borderRadius: 5,
         boxShadow: 3,
         py: 10,
         px: 5,
-        minWidth: 300,
+        minWidth: 600,
         justifyContent: "center",
         gap: 3
       }
       }>
-        <Typography>Hello</Typography>
+        <Typography variant="h3" textAlign="center">Make a new order</Typography>
+        <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined"/>
+        <Divider light />
+        <Typography variant="h5">Adress information</Typography>
+        <TextField label="Adress" helperText="Write your adress here" variant="outlined"/>
+        <Divider light />
+        <FormControl>
+          <InputLabel>Categories</InputLabel>
+          <Select
+          labelId="multiple-chip-label"
+          id="multiple-chip"
+          multiple
+          value={categoriesSelected}
+          onChange={handleChange}
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+          >
+            {categories.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, categoriesSelected, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Box sx={{display: "flex", flexDirection: "row", gap: 2, justifyContent: "right"}}>
+          <Button variant="contained" color="inherit" onClick={clearAll}>Clear</Button>
+          <Button variant="contained" color="primary">Create</Button>
+        </Box>
       </Box>
     </Box>
   )
