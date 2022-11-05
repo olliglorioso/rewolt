@@ -13,13 +13,12 @@ mongoose.connect(DB_URL || "");
 app.use(cors())
 require("./models/user");
 require("./models/order");
-require("./models/category");
+require("./models/dropoff");
 
 const routers = [
   // import routers here
   require("./routes/public").default,
 ]
-
 
 routers.forEach(router => {
   app.use(router);
