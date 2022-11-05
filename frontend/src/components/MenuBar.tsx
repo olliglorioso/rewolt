@@ -5,7 +5,15 @@ const MenuBar = () => {
   return (
     <AppBar>
       <Toolbar>
-        Hi
+      <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
       </Toolbar>
     </AppBar>
   )
