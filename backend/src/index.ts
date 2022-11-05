@@ -2,6 +2,18 @@ import * as express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import * as cors from "cors";
+import { IUser } from "./models/user";
+
+export {}
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user?: IUser;
+    }
+  }
+}
+
 dotenv.config();
 
 const app = express();
