@@ -32,13 +32,6 @@ const MenuProps = {
 
 const categories = ["Electronics", "Batteries", "Textiles", "Rubber", "Other"];
 
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,  };
-}
 interface DropOff {
   friendlyName: string;
   address: string;
@@ -46,7 +39,6 @@ interface DropOff {
 }
 
 const OrderPage = () => {
-  const theme = useTheme();
   const [categoriesSelected, setCategoriesSelected] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [address, setAddress] = useState<string>("");
@@ -106,7 +98,8 @@ const OrderPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      return navigate("/successfulOrder");
+      const trackingUrl = response.data.delivery.tracking
+      return navigate("/successfulOrder/");
     } catch(err){
       console.log(err);
     }
