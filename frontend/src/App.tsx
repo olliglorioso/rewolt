@@ -13,6 +13,7 @@ import { Box, Toolbar } from "@mui/material";
 import RegisterPage from "./components/RegisterPage";
 import { useSelector } from "react-redux";
 import NanPage from "./components/404Page";
+import SuccessOrderPage from "./components/SuccesOrder";
 
 interface StateT {
   token: string;
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
+            <Route path="/successfulOrder" element={tokenExists ? <SuccessOrderPage /> : <LoginPage />} />
             <Route path="" element={token ? <NanPage /> : <LoginPage />} />
           </Routes>
         </Box>
