@@ -14,8 +14,10 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useReducer } from "react";
+import { useSelector } from "react-redux";
+import { Form, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,8 +37,12 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
     fontWeight:
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+        : theme.typography.fontWeightMedium,  };
+}
+interface DropOff {
+  friendlyName: string;
+  address: string;
+  _id: string;
 }
 
 const OrderPage = () => {
@@ -45,7 +51,28 @@ const OrderPage = () => {
   const [title, setTitle] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const navigate = useNavigate();
+  const token = useSelector((state: any) => state.token);
 
+  const [droppoffs, setDroppoffs] = useState<DropOff[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    const getDropoffs = async () => {
+      const response = await axios.get("http://localhost:4000/api/dropoffs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (isMounted)
+        setDroppoffs(response.data as DropOff[]);
+    };
+    getDropoffs();
+    return () => {
+      isMounted = false;
+    };
+  }, [token]);
+  console.log(droppoffs);
+  
   const handleChange = (
     event: SelectChangeEvent<typeof categoriesSelected>
   ) => {
@@ -98,14 +125,17 @@ const OrderPage = () => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <Divider light />
-      <Typography variant="h5">Address information</Typography>
-      <TextField
-        label="Address"
-        helperText="Write your address here"
-        variant="outlined"
-        value={address}
+      <FormControl>
+        <InputLabel id="dropoff-label">Dropoff point</InputLabel>
+      <Select
+        labelId="dropoff-label"
         onChange={(e) => setAddress(e.target.value)}
-      />
+        value={address}>
+        {droppoffs.map((dropoff) => (
+          <MenuItem value={dropoff._id}>{dropoff.friendlyName} - {dropoff.address}</MenuItem>
+        ))}
+      </Select>
+      </FormControl>
       <Divider light />
       <FormControl>
         <InputLabel>Categories</InputLabel>
