@@ -15,7 +15,8 @@ const NanPage = () => {
         boxShadow: 3,
         py: 10,
         px: 5,
-        minWidth: 300,
+        mt: 5,
+        minWidth: 225,
         justifyContent: "center",
         gap: 3,
       }}
@@ -24,8 +25,8 @@ const NanPage = () => {
       <Box
         component="img"
         sx={{
-          height: 400,
-          width: 350,
+          height: {"md": 400, "xs": 300},
+          width: {"md": 350, "xs": 240},
         }}
         src={chicken}
       />
