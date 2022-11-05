@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom"
 import React from "react";
 import { useDispatch } from "react-redux";
 import { removeToken } from "../redux/store";
-const buttonsInMenu = [{text: "Order", link: "/order"}]
+const buttonsInMenu = [{text: "Order", link: "/order"}, {text: "Listing", link: "/listing"}]
 const buttonsInTooltip = [{text: "Profile", link: "/userInfo"}, {text: "Logout", link: "/logout"}]
 
 

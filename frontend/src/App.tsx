@@ -22,6 +22,7 @@ import NanPage from "./components/404Page";
 import SuccessOrderPage from "./components/SuccesOrder";
 import { setEmail, setToken } from "./redux/store";
 import UserPage from "./components/UserPage";
+import ListingPage from "./components/ListingPage";
 
 interface StateT {
   token: string;
@@ -78,6 +79,7 @@ export default function App() {
                 path="/userInfo"
                 element={tokenExists ? <UserPage /> : <LoginPage />} 
               />
+              <Route path="/listing" element={token ? <ListingPage /> : <LoginPage />} />
               <Route path="" element={token ? <NanPage /> : <LoginPage />} />
             </Routes>
           </Box>
