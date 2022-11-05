@@ -12,23 +12,21 @@ import { Box, Toolbar } from "@mui/material";
 import RegisterPage from "./components/RegisterPage";
 
 export default function App() {
-  const [token, setToken] = useState("asd");
-
-  if (!token) {
-    return <LoginPage/>;
-  }
-
+  const token = undefined
   return (
     <Router>
       <Box>
-        <MenuBar />
-        <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-          <Toolbar />
+          {   
+            token 
+            ? <MenuBar />
+            : <div></div>
+          }
+        <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}> <Toolbar />
           <Routes>
+            <Route path="/order" element={token ? <OrderPage /> : <LoginPage />} />
+            <Route path="/register" element={token ? <RegisterPage /> : <LoginPage />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="" element={<div></div>} />
-            <Route path="newOrder" element={<OrderPage />} />
-            <Route path="register" element={<RegisterPage />} />
-            <Route path="login" element={<LoginPage />} />
           </Routes>
         </Box>
       </Box>

@@ -1,15 +1,16 @@
-import { Button, TextField, Typography, Box } from "@mui/material";
+import { Button, TextField, Typography, Box, Link } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../requests/post";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await loginUser(email, password);
-    return
+    await loginUser(email, password, navigate);
   };
 
   return <Box sx={{
@@ -42,6 +43,7 @@ const LoginPage = () => {
         <TextField variant="outlined" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
       </div>
       <Button onClick={handleSubmit} variant="contained" color="info">Login</Button>
+      <div>Not registered yet? <Link href="/register" >Sign up</Link></div>
     </Box>
   </Box>
 }
