@@ -19,7 +19,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-app.use(express.static("../build"))
+app.use(express.static("./build"))
 mongoose.connect(DB_URL || "");
 app.use(express.json())
 app.use(cors())
