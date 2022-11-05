@@ -25,6 +25,11 @@ routers.forEach(router => {
   app.use(router);
 });
 
+// require token
+app.use(require("./middlewares/auth").requireLogin);
+
+app.use(require("./routes/api").default);
+
 
 // run the server
 app.listen(PORT, () => {
