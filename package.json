@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "start": "node backend/dist/index.js",
+    "start1": "node backend/dist/index.js",
     "url": "git+https://github.com/olliglorioso/rewolt.git"
   },
   "author": "",
