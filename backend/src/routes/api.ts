@@ -11,7 +11,7 @@ router.get("/api/dropoffs", async (req, res) => {
 });
 
 router.post("/api/fee", async (req, res) => {
-  const { dropoffId, title, category } = req.body as {
+  const { dropoffId } = req.body as {
     dropoffId: string;
     title: string;
     category: string;
