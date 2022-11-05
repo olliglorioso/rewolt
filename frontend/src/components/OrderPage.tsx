@@ -27,7 +27,7 @@ const OrderPage = () => {
   const theme = useTheme()
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
   const [title, setTitle] = useState<string>("")
-  const [adress, setAdress] = useState<string>("")
+  const [address, setAddress] = useState<string>("")
 
   const handleChange = (event: SelectChangeEvent<typeof categoriesSelected>) => {
     const {
@@ -41,12 +41,12 @@ const OrderPage = () => {
 
   const clearAll = () => {
     setCategoriesSelected([])
-    setAdress("")
+    setAddress("")
     setTitle("")
   }
 
   const handleSubmit = () => {
-    console.log(title, adress, categoriesSelected)
+    console.log(title, address, categoriesSelected)
   }
 
   return (
@@ -76,7 +76,7 @@ const OrderPage = () => {
         <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined" value={title} onChange={e => setTitle(e.target.value)}/>
         <Divider light />
         <Typography variant="h5">Address information</Typography>
-        <TextField label="Address" helperText="Write your adress here" variant="outlined" value={adress} onChange={e => setAdress(e.target.value)}/>
+        <TextField label="Address" helperText="Write your address here" variant="outlined" value={address} onChange={e => setAddress(e.target.value)}/>
         <Divider light />
         <FormControl>
           <InputLabel>Categories</InputLabel>
