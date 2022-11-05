@@ -14,6 +14,12 @@ interface LoginPayload {
 
 router.post("/api/login", async (req, res) => {
   // login
+  console.log(req.body)
+  if(!req.body || !req.body.email || !req.body.password) {
+    return res.status(400).json({
+      message: "Missing email or password",
+    });
+  }
   const { email, password } = req.body as LoginPayload;
   const user = await User.findOne({ email });
   if (!user) {
