@@ -47,13 +47,25 @@ router.post("/api/register", async (req, res) => {
   // register
 
   const {email, password} = req.body as Register;
-  
+  // check if email is already in use
+
+  const user2 = await User.findOne({email});
+  if(user2) {
+    return res.status(400).json({
+      message: "Email is already in use",
+    });
+  }
+
   const user = new User({
     email,
     password: await bcrypt.hash(password, 10),
   });
+
     
   await user.save();
+  return res.status(201).json({
+    message: "User created",
+  });
 });
 
 export default router;
