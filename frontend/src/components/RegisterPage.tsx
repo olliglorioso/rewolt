@@ -7,11 +7,12 @@ import { useDispatch } from "react-redux";
 const RegisterPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await registerUser(email, password, navigate, dispatch);
+    await registerUser(email, password, phone, navigate, dispatch);
   };
 
   return (
@@ -49,6 +50,14 @@ const RegisterPage = () => {
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           label="Password"
+          fullWidth
+        />
+      </div>
+      <div>
+        <TextField
+          variant="outlined"
+          label="Phone"
+          onChange={(e) => setPhone(e.target.value)}
           fullWidth
         />
       </div>
