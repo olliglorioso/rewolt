@@ -1,15 +1,17 @@
 import axios from "axios"
-import { setToken } from "../redux/store"
+import { setEmail, setToken } from "../redux/store"
 import { baseUrl } from "../constants"
 import { Store } from 'react-notifications-component';
 
 const loginUser = async (email: string, password: string, navigate: any, dispatch: any) => {
     try {
-        const result: any = await axios.post(`${baseUrl}/api/login`, { email, password })
+        const result = await axios.post(`${baseUrl}/api/login`, { email, password })
         const { statusText } = result
         if (statusText === "OK" || statusText === "ok") {
             dispatch(setToken(result.data.token))
+            dispatch(setEmail(result.data.email))
             localStorage.setItem("token", result.data.token)
+            localStorage.setItem("email", result.data.email)
             return navigate("/order")
         }
     } catch (e: any) {
@@ -36,7 +38,9 @@ const registerUser = async (email: string, password: string, phone: string, navi
     if (statusText === "Created" || statusText === "ok") {
         const loginResult = await axios.post(`${baseUrl}/api/login`, { email, password })
         dispatch(setToken(loginResult.data.token))
+        dispatch(setEmail(result.data.email))
         localStorage.setItem("token", loginResult.data.token)
+        localStorage.setItem("email", result.data.email)
         return navigate("/order")
     }
 }

@@ -22,25 +22,32 @@ import RegisterPage from "./components/RegisterPage";
 import { useDispatch, useSelector } from "react-redux";
 import NanPage from "./components/404Page";
 import SuccessOrderPage from "./components/SuccesOrder";
-import { setToken } from "./redux/store";
+import { setEmail, setToken } from "./redux/store";
 import UserPage from "./components/UserPage";
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
+import ListingPage from "./components/ListingPage";
 
 interface StateT {
   token: string;
+  email: string;
 }
 
 export default function App() {
   const theme = responsiveFontSizes(createTheme());
   let token: any = useSelector((state: StateT) => state.token);
+  let email: any = useSelector((state: StateT) => state.email)
   const dispatch = useDispatch();
   if (!token || token === "") {
     token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
   }
+  if (!email || email === "") {
+    email = localStorage.getItem("email") ? localStorage.getItem("email") : "";
+  }
   useEffect(() => {
     dispatch(setToken(token));
+    dispatch(setEmail(email))
   }, [token, dispatch]);
 
   const tokenExists = token !== "" && token !== undefined;
@@ -78,6 +85,7 @@ export default function App() {
                 path="/userInfo"
                 element={tokenExists ? <UserPage /> : <LoginPage />} 
               />
+              <Route path="/listing" element={token ? <ListingPage /> : <LoginPage />} />
               <Route path="" element={token ? <NanPage /> : <LoginPage />} />
             </Routes>
           </Box>

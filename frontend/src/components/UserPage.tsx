@@ -5,9 +5,11 @@ import { getOrders } from "../requests/post";
 
 const UserPage = () => {
   const token = useSelector((state: any) => state.token);
+  const email = useSelector((state: any) => state.email)
   const [orders, setOrders] = useState([])
   useEffect(() => {
-    const temp = async () => await getOrders("samu2@test.fi", token)
+    console.log(email)
+    const temp = async () => await getOrders(email, token)
     temp().then(x => setOrders(x.map((y: { title: any; }) => y.title)))
   }, [])
   console.log(orders)

@@ -34,9 +34,12 @@ router.post("/api/login", async (req, res) => {
   }
   const token = jwt.sign({ userId: user._id }, JWT_SECRET);
   return res.json({
-    token,
+    token: token,
+    email: user.email
   });
 });
+
+
 
 interface Register{
   email: string;
