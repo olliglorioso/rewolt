@@ -18,7 +18,8 @@ const LoginPage = () => {
 
   return <Box sx={{
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
+    alignItems: "center",
     width: "full",
     height: "screen",
     justifyContent: "center"

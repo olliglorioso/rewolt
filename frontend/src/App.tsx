@@ -34,7 +34,12 @@ export default function App() {
             ? <MenuBar />
             : <div></div>
           }
-        <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}> <Toolbar />
+        <Box component="main" sx={{display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "full",
+    height: "screen",
+    justifyContent: "center"}}> <Toolbar />
           <Routes>
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
