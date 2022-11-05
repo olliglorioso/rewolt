@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../constants";
+import { Store } from 'react-notifications-component';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -87,6 +89,9 @@ const OrderPage = () => {
   const handleSubmit = async () => {
     console.log(title, address, categoriesSelected);
     try {
+      if (!address || !title  || (address.length === 0) || (title.length === 0)) {
+       throw "Please fill all the fields correctly." 
+      }
       const response = await axios.post(
       `${baseUrl}/api/order`,
       {
@@ -101,8 +106,21 @@ const OrderPage = () => {
       });
       const trackingUrl = response.data.delivery.tracking.url
       return navigate(`/successOrder/${encodeURIComponent(trackingUrl)}`);
-    } catch(err){
-      console.log(err);
+    } catch(err) {
+      Store.addNotification({
+        title: "Error!",
+        message: err ? err : "Something went wrong." ,
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 5000,
+            onScreen: true
+        }
+    });
+
     }
     
 

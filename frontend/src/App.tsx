@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {
   BrowserRouter as Router,
   Routes,
@@ -22,6 +24,9 @@ import NanPage from "./components/404Page";
 import SuccessOrderPage from "./components/SuccesOrder";
 import { setToken } from "./redux/store";
 import UserPage from "./components/UserPage";
+import { ReactNotifications } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+
 
 interface StateT {
   token: string;
@@ -41,6 +46,7 @@ export default function App() {
   const tokenExists = token !== "" && token !== undefined;
   return (
     <ThemeProvider theme={theme}>
+      <ReactNotifications />
       <Router>
         <Box sx={{ minHeight: "100vh", bgcolor: "lightblue" }}>
           {tokenExists ? <MenuBar /> : <div></div>}
