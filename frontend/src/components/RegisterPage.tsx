@@ -46,7 +46,8 @@ const RegisterPage = () => {
         boxShadow: 3,
         py: 10,
         px: 5,
-        minWidth: 300,
+        mt: 5,
+        minWidth: 225,
         justifyContent: "center",
         gap: 3,
       }}

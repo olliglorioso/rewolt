@@ -29,7 +29,7 @@ router.post("/api/order", async (req, res) => {
   }
   const order = new Order({
     dropoff,
-    user: req.body.user,
+    user: req.user,
     title: req.body.title,
     category: req.body.category,
   });

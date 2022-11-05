@@ -7,6 +7,7 @@ import { loginUser } from "../requests/post";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("")
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,6 +16,12 @@ const LoginPage = () => {
     e.preventDefault();
     await loginUser(email, password, navigate, dispatch);
   };
+
+  const vaidate = () => {
+    if (email.length <= 3) {
+      setEmailError("Required field")
+    }
+  }
 
   return (
     <Box
@@ -28,7 +35,8 @@ const LoginPage = () => {
         boxShadow: 3,
         py: 10,
         px: 5,
-        minWidth: 300,
+        mt: 5,
+        minWidth: 225,
         justifyContent: "center",
         gap: 3,
       }}
