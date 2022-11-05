@@ -17,7 +17,6 @@ interface StateT {
 }
 
 export default function App() {
-<<<<<<< Updated upstream
   let token: any = useSelector((state: StateT) => state.token)
   if (!token || token === "") {
     token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
@@ -25,9 +24,6 @@ export default function App() {
 
   const tokenExists = token !== "" && token !== undefined 
 
-=======
-  const token = "undefined"
->>>>>>> Stashed changes
   return (
     <Router>
       <Box>
@@ -41,11 +37,7 @@ export default function App() {
             <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
             <Route path="/register" element={tokenExists ? <RegisterPage /> : <LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
-<<<<<<< Updated upstream
-            <Route path="/" element={<div></div>} />
-=======
             <Route path="" element={token ? <div>Nothing here but us chickens</div> : <LoginPage />} />
->>>>>>> Stashed changes
           </Routes>
         </Box>
       </Box>
