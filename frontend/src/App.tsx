@@ -10,9 +10,15 @@ import MenuBar from "./components/MenuBar";
 import OrderPage from "./components/OrderPage";
 import { Box, Toolbar } from "@mui/material";
 import RegisterPage from "./components/RegisterPage";
+import { useSelector } from "react-redux";
+
+interface StateT {
+  token: string;
+}
 
 export default function App() {
-  const token = undefined
+  const token = useSelector((state: StateT) => state.token)
+  console.log(token)
   return (
     <Router>
       <Box>

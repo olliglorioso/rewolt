@@ -1,16 +1,19 @@
 import { Button, TextField, Typography, Box, Link } from "@mui/material";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../requests/post";
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await loginUser(email, password, navigate);
+    await loginUser(email, password, navigate, dispatch);
   };
 
   return <Box sx={{
