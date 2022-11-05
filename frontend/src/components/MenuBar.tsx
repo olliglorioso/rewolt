@@ -28,7 +28,7 @@ const MenuBar = () => {
   };
 
   return (
-    <AppBar>
+    <AppBar component="nav">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Android sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
