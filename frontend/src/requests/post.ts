@@ -12,9 +12,9 @@ const loginUser = async (email: string, password: string, navigate: any, dispatc
 }
 
 const registerUser = async (email: string, password: string, navigate: any, dispatch: any) => {
-    const result: any = axios.post("http://localhost:4000/api/login", { email, password })
+    const result: any = await axios.post("http://localhost:4000/api/register", { email, password })
     const { statusText } = result
-    if (statusText === "OK" || statusText === "ok") {
+    if (statusText === "Created" || statusText === "ok") {
         const loginResult = await axios.post("http://localhost:4000/api/login", { email, password })
         dispatch(setToken(loginResult.data.token))
         localStorage.setItem("token", loginResult.data.token)

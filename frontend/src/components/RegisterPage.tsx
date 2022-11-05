@@ -9,6 +9,10 @@ const RegisterPage = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await registerUser(email, password, navigate, dispatch);
+  };
 
   return <Box sx={{
     display: "flex",
@@ -40,7 +44,7 @@ const RegisterPage = () => {
       <div>
         <TextField variant="outlined" type="password" onChange={e => setPassword(e.target.value)} label="Password" fullWidth/>
       </div>
-      <Button variant="contained" color="info">Register now</Button>
+      <Button onClick={handleSubmit} variant="contained" color="info">Register now</Button>
     </Box>
   </Box>
 }
