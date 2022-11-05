@@ -18,6 +18,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { Form, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseUrl } from "../constants";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -87,7 +88,7 @@ const OrderPage = () => {
     console.log(title, address, categoriesSelected);
     try {
       const response = await axios.post(
-      "http://localhost:4000/api/order",
+      `${baseUrl}/api/order`,
       {
         title,
         dropoffId: address,
@@ -98,8 +99,8 @@ const OrderPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const trackingUrl = response.data.delivery.tracking
-      return navigate("/successfulOrder/");
+      const trackingUrl = response.data.delivery.tracking.url
+      return navigate(`/successOrder/${encodeURIComponent(trackingUrl)}`);
     } catch(err){
       console.log(err);
     }

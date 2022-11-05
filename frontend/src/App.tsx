@@ -64,7 +64,7 @@ export default function App() {
                 element={tokenExists ? <OrderPage /> : <LoginPage />}
               />
               <Route
-                path="/successfulOrder"
+                path="/successOrder/:trackingUrl"
                 element={tokenExists ? <SuccessOrderPage /> : <LoginPage />}
               />
               <Route path="" element={token ? <NanPage /> : <LoginPage />} />
