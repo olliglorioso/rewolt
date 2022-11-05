@@ -1,7 +1,15 @@
 import { Button, TextField, Typography, Box } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../requests/post";
+import { useDispatch } from "react-redux";
 
 const RegisterPage = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   return <Box sx={{
     display: "flex",
     flexDirection: "row",
@@ -25,14 +33,12 @@ const RegisterPage = () => {
       }
     }>
       <Typography variant="h3">Register here</Typography>
-      <Typography variant="caption" align="right">Make the future better now</Typography>
+      <Typography variant="caption" align="right">Make a rewoltution with us.</Typography>
       <div>
-        <Typography variant="body1">Email</Typography>
-        <TextField variant="outlined" label="Email" fullWidth/>
+        <TextField variant="outlined" label="Email" onChange={e => setEmail(e.target.value)} fullWidth/>
       </div>
       <div>
-        <Typography variant="body1">Password</Typography>
-        <TextField variant="outlined" label="Username" fullWidth/>
+        <TextField variant="outlined" type="password" onChange={e => setPassword(e.target.value)} label="Password" fullWidth/>
       </div>
       <Button variant="contained" color="info">Register now</Button>
     </Box>

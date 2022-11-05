@@ -43,7 +43,7 @@ const LoginPage = () => {
         <TextField variant="outlined" label="Email" fullWidth onChange={e => setEmail(e.target.value)}/>
       </div>
       <div>
-        <TextField variant="outlined" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
+        <TextField type="password" variant="outlined" label="Password" fullWidth onChange={e => setPassword(e.target.value)}/>
       </div>
       <Button onClick={handleSubmit} variant="contained" color="info">Login</Button>
       <div>Not registered yet? <Link href="/register" >Sign up</Link></div>
