@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import * as cors from "cors";
 import { IUser } from "./models/user";
+import { DB_URL } from "./constants";
 
 export {}
 
@@ -18,11 +19,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const DB_URL = process.env.DB_URL;
-
+app.use(express.static("../build"))
 mongoose.connect(DB_URL || "");
 app.use(express.json())
 app.use(cors())
+
 require("./models/user");
 require("./models/order");
 require("./models/dropoff");

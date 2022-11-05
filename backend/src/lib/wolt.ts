@@ -1,7 +1,7 @@
+import { WOLT_API_KEY, WOLT_MERCHANT_ID } from "../constants";
+
 const axios = require('axios');
 const BASE_URL = 'https://daas-public-api.development.dev.woltapi.com';
-const MERCHANT_ID = process.env.WOLT_MERCHANT_ID;
-const API_KEY = process.env.WOLT_API_KEY;
 
 interface DeliveryFee {
   time_estimate_minutes: number;
@@ -25,9 +25,9 @@ export const getFee = async (from: string, to: string): Promise<DeliveryFee> => 
       }
     }
   };
-  const response = await axios.post(`${BASE_URL}/merchants/${MERCHANT_ID}/delivery-fee`, requestBody, {
+  const response = await axios.post(`${BASE_URL}/merchants/${WOLT_MERCHANT_ID}/delivery-fee`, requestBody, {
     headers: {
-      'Authorization': `Bearer ${API_KEY}`,
+      'Authorization': `Bearer ${WOLT_API_KEY}`,
     },
   });
   return response.data as DeliveryFee;
@@ -85,9 +85,9 @@ export const createDelivery = async (from: string, to: string,
   "min_preparation_time_minutes": 0,
   "scheduled_dropoff_time": null
 }
-  const response = await axios.post(`${BASE_URL}/merchants/${MERCHANT_ID}/delivery-order`, body, {
+  const response = await axios.post(`${BASE_URL}/merchants/${WOLT_MERCHANT_ID}/delivery-order`, body, {
     headers: {
-      'Authorization': `Bearer ${API_KEY}`,
+      'Authorization': `Bearer ${WOLT_API_KEY}`,
     },
   });
   return response.data;
