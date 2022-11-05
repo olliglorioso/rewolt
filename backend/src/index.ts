@@ -1,7 +1,7 @@
 import * as express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
-import * as cors from "cors"
+import * as cors from "cors";
 dotenv.config();
 
 const app = express();
@@ -13,7 +13,7 @@ mongoose.connect(DB_URL || "");
 app.use(cors())
 require("./models/user");
 require("./models/order");
-require("./models/item");
+require("./models/category");
 
 const routers = [
   // import routers here
