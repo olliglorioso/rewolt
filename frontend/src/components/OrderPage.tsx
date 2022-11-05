@@ -49,7 +49,7 @@ const OrderPage = () => {
 
   const handleSubmit = () => {
     console.log(title, address, categoriesSelected)
-    return navigate("/success")
+    return navigate("/successOrder")
   }
 
   return (
