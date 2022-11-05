@@ -41,7 +41,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Box sx={{ height: "100vh", bgcolor: "lightblue" }}>
+        <Box sx={{ minHeight: "100vh", bgcolor: "lightblue" }}>
           {tokenExists ? <MenuBar /> : <div></div>}
           <Box
             component="main"

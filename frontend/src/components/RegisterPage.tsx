@@ -53,7 +53,7 @@ const RegisterPage = () => {
     >
       <Typography variant="h3">Register here</Typography>
       <Typography variant="caption" align="right">
-        Make a rewoltution with us.
+        Make a reWOLTution with us.
       </Typography>
       <div>
         <TextField
