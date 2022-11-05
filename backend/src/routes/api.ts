@@ -2,6 +2,7 @@ import { Router } from "express";
 import Dropoff from "../models/dropoff";
 import Order from "../models/order";
 import { createDelivery, getFee } from "../lib/wolt";
+import { getDumpLocation } from "../lib/dumplocation";
 const router = Router();
 
 router.get("/api/dropoffs", async (req, res) => {
@@ -11,9 +12,8 @@ router.get("/api/dropoffs", async (req, res) => {
 });
 
 router.post("/api/fee", async (req, res) => {
-  const { dropoffId } = req.body as {
+  const { dropoffId, category } = req.body as {
     dropoffId: string;
-    title: string;
     category: string;
   };
   const dropoff = await Dropoff.findById(dropoffId);
@@ -22,8 +22,8 @@ router.post("/api/fee", async (req, res) => {
       message: "Dropoff not found",
     });
   }
-
-  const fee = await getFee(dropoff.address, "Korkeavuorenkatu 5, 00100 Helsinki");
+  const dumpLocation = await getDumpLocation(dropoff.lat, dropoff.lon, category);
+  const fee = await getFee(dropoff.address, dumpLocation.streetAddress);
   return res.json(fee);
 });
 
@@ -52,19 +52,23 @@ router.post("/api/order", async (req, res) => {
     category: req.body.category,
   });
   await order.save();
+    
+  const dumpLocation = await getDumpLocation(dropoff.lat, dropoff.lon, category);
+  console.log(dumpLocation);
   let delivery;
   try {
+
     delivery = await createDelivery(
       dropoff.address,
-      "Korkeavuorenkatu 5, 00100 Helsinki",
+      dumpLocation.streetAddress,
       "come fast",
       {
         name: req.user.email,
-        phone: req.user.phone,
+        phone: req.user.phone || "+358404342342",
       },
       {
-        name: dropoff.friendlyName,
-        phone: "+358404938574",
+        name: dumpLocation.streetAddress,
+        phone: dumpLocation.phoneNumber,
       },
       title,
       category,

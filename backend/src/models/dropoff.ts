@@ -10,6 +10,14 @@ const dropoffSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lat: {
+    type: Number,
+    required: true,
+  },
+  lon: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Dropoff = mongoose.model("Dropoff", dropoffSchema);
