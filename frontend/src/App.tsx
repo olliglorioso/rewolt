@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
   Link,
-  redirect
+  redirect,
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import React, { useState } from "react";
@@ -20,31 +20,40 @@ interface StateT {
 }
 
 export default function App() {
-  let token: any = useSelector((state: StateT) => state.token)
+  let token: any = useSelector((state: StateT) => state.token);
   if (!token || token === "") {
-    token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
+    token = localStorage.getItem("token") ? localStorage.getItem("token") : "";
   }
 
-  const tokenExists = token !== "" && token !== undefined 
+  const tokenExists = token !== "" && token !== undefined;
   return (
     <Router>
       <Box>
-          {   
-            tokenExists
-            ? <MenuBar />
-            : <div></div>
-          }
-        <Box component="main" sx={{display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "full",
-    height: "screen",
-    justifyContent: "center"}}> <Toolbar />
+        {tokenExists ? <MenuBar /> : <div></div>}
+        <Box
+          component="main"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "full",
+            height: "screen",
+            justifyContent: "center",
+          }}
+        >
+          {" "}
+          <Toolbar />
           <Routes>
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
-            <Route path="/successfulOrder" element={tokenExists ? <SuccessOrderPage /> : <LoginPage />} />
+            <Route
+              path="/order"
+              element={tokenExists ? <OrderPage /> : <LoginPage />}
+            />
+            <Route
+              path="/successfulOrder"
+              element={tokenExists ? <SuccessOrderPage /> : <LoginPage />}
+            />
             <Route path="" element={token ? <NanPage /> : <LoginPage />} />
           </Routes>
         </Box>
