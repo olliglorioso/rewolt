@@ -2,7 +2,6 @@ import * as express from "express";
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import * as cors from "cors";
-import * as bodyParser from "body-parser"
 dotenv.config();
 
 const app = express();
@@ -11,7 +10,7 @@ const DB_URL = process.env.DB_URL;
 
 mongoose.connect(DB_URL || "");
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(cors())
 require("./models/user");
 require("./models/order");
