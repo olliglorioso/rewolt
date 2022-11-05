@@ -24,12 +24,11 @@ export default function App() {
   }
 
   const tokenExists = token !== "" && token !== undefined 
-  console.log(token)
   return (
     <Router>
       <Box>
           {   
-            token 
+            tokenExists
             ? <MenuBar />
             : <div></div>
           }
