@@ -47,7 +47,7 @@ interface DropOff {
 
 const OrderPage = () => {
   const theme = useTheme();
-  const [categoriesSelected, setCategoriesSelected] = useState<string>([]);
+  const [categoriesSelected, setCategoriesSelected] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const navigate = useNavigate();
