@@ -45,6 +45,10 @@ const OrderPage = () => {
     setTitle("")
   }
 
+  const handleSubmit = () => {
+    console.log(title, adress, categoriesSelected)
+  }
+
   return (
     <Box sx={{
       display: "flex",
@@ -69,10 +73,10 @@ const OrderPage = () => {
       }
       }>
         <Typography variant="h3" textAlign="center">Make a new order</Typography>
-        <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined" onChange={e => setTitle(e.target.value)}/>
+        <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined" value={title} onChange={e => setTitle(e.target.value)}/>
         <Divider light />
         <Typography variant="h5">Adress information</Typography>
-        <TextField label="Adress" helperText="Write your adress here" variant="outlined" onChange={e => setAdress(e.target.value)}/>
+        <TextField label="Adress" helperText="Write your adress here" variant="outlined" value={adress} onChange={e => setAdress(e.target.value)}/>
         <Divider light />
         <FormControl>
           <InputLabel>Categories</InputLabel>
@@ -82,7 +86,7 @@ const OrderPage = () => {
           multiple
           value={categoriesSelected}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
@@ -105,7 +109,7 @@ const OrderPage = () => {
         </FormControl>
         <Box sx={{display: "flex", flexDirection: "row", gap: 2, justifyContent: "right"}}>
           <Button variant="contained" color="inherit" onClick={clearAll}>Clear</Button>
-          <Button variant="contained" color="primary">Create</Button>
+          <Button variant="contained" color="primary" onClick={handleSubmit}>Create</Button>
         </Box>
       </Box>
     </Box>
