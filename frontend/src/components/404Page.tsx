@@ -1,5 +1,5 @@
 import { Box, Icon, Typography } from "@mui/material";
-import chicken from "../../public/chicken.jpeg";
+import chicken from "../../chicken.jpeg";
 import React from "react";
 
 const NanPage = () => {
