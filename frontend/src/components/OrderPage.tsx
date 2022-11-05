@@ -26,6 +26,8 @@ function getStyles(name: string, personName: readonly string[], theme: Theme) {
 const OrderPage = () => {
   const theme = useTheme()
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
+  const [title, setTitle] = useState<string>("")
+  const [adress, setAdress] = useState<string>("")
 
   const handleChange = (event: SelectChangeEvent<typeof categoriesSelected>) => {
     const {
@@ -39,6 +41,8 @@ const OrderPage = () => {
 
   const clearAll = () => {
     setCategoriesSelected([])
+    setAdress("")
+    setTitle("")
   }
 
   return (
@@ -65,10 +69,10 @@ const OrderPage = () => {
       }
       }>
         <Typography variant="h3" textAlign="center">Make a new order</Typography>
-        <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined"/>
+        <TextField label="Title" helperText="Title for your order. Max 40 symbols" variant="outlined" onChange={e => setTitle(e.target.value)}/>
         <Divider light />
         <Typography variant="h5">Adress information</Typography>
-        <TextField label="Adress" helperText="Write your adress here" variant="outlined"/>
+        <TextField label="Adress" helperText="Write your adress here" variant="outlined" onChange={e => setAdress(e.target.value)}/>
         <Divider light />
         <FormControl>
           <InputLabel>Categories</InputLabel>
