@@ -45,6 +45,10 @@ const OrderPage = () => {
     setTitle("")
   }
 
+  const handleSubmit = () => {
+    console.log(title, adress, categoriesSelected)
+  }
+
   return (
     <Box sx={{
       display: "flex",
@@ -82,7 +86,7 @@ const OrderPage = () => {
           multiple
           value={categoriesSelected}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
@@ -105,7 +109,7 @@ const OrderPage = () => {
         </FormControl>
         <Box sx={{display: "flex", flexDirection: "row", gap: 2, justifyContent: "right"}}>
           <Button variant="contained" color="inherit" onClick={clearAll}>Clear</Button>
-          <Button variant="contained" color="primary">Create</Button>
+          <Button variant="contained" color="primary" onChange={handleSubmit}>Create</Button>
         </Box>
       </Box>
     </Box>
