@@ -1,12 +1,11 @@
 import { Router } from "express";
-import Item from "../models/item";
+import Category from "../models/category";
 
 const router = Router();
 
-router.get("/api/items", async (req, res) => {
-  // get all items
-  const items = await Item.find();
-  return res.json(items);
+router.get("/api/categories", async (req, res) => {
+  const categories = await Category.find();
+  return res.json(categories);
 });
 
 export default router;
