@@ -98,8 +98,8 @@ const OrderPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const trackingUrl = response.data.delivery.tracking
-      return navigate("/successfulOrder/");
+      const trackingUrl = response.data.delivery.tracking.url
+      return navigate(`/successOrder/${encodeURIComponent(trackingUrl)}`);
     } catch(err){
       console.log(err);
     }

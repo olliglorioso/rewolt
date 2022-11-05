@@ -1,10 +1,13 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import "./success.scss"
+import { useLocation } from "react-router-dom";
 
 const SuccessOrderPage = () => {
   const navigate = useNavigate();
+  const trackingUrl = useParams().trackingUrl;
+  console.log(trackingUrl)
   return (
     <Box
       sx={{
@@ -32,7 +35,8 @@ const SuccessOrderPage = () => {
         </div>
       </div>
       <Typography variant="h5" textAlign="center">
-        The order has been submitted successfully.
+        The order has been submitted successfully. You can track your order{" "}
+        <a href={trackingUrl}>here</a>
       </Typography>
       <Button onClick={(e) => navigate("/order")} variant="contained">
         Make another one
