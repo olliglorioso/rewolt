@@ -18,7 +18,9 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+app.use(express.static("./build"))
 const DB_URL = process.env.DB_URL;
+mongoose.connect(DB_URL || "");
 
 app.use(async (req, res, next) => {
   try {
@@ -30,7 +32,14 @@ app.use(async (req, res, next) => {
   }
 });
 
-mongoose.connect(DB_URL || "");
+app.use((req, res, next) => {
+  if(req.url.startsWith("/api")) {
+    next();
+  } else {
+    res.sendFile("index.html", {root: "./build"});
+  }
+});
+
 app.use(express.json())
 app.use(cors())
 require("./models/user");
