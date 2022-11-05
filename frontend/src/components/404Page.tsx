@@ -15,7 +15,7 @@ const NanPage = () => {
         boxShadow: 3,
         py: 10,
         px: 5,
-        mt: 5,
+        my: 5,
         minWidth: 225,
         justifyContent: "center",
         gap: 3,

@@ -3,6 +3,7 @@ import Dropoff from "../models/dropoff";
 import Order from "../models/order";
 import { createDelivery, getFee } from "../lib/wolt";
 import { getDumpLocation } from "../lib/dumplocation";
+import User from "../models/user";
 const router = Router();
 
 router.get("/api/dropoffs", async (req, res) => {
@@ -85,5 +86,17 @@ router.post("/api/order", async (req, res) => {
     delivery
   });
 });
+
+router.get("/api/:userEmail/history", async (req, res) => {
+  try {
+  const uId = await User.find({email: req.params.userEmail})
+  const ordersByUser = await Order.find({user: uId[0]._id})
+  console.log(ordersByUser)
+  return res.status(200).json(ordersByUser)
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({message: "some error"})
+  }
+})
 
 export default router;

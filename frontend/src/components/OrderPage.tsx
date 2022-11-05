@@ -114,13 +114,13 @@ const OrderPage = () => {
         display: "flex",
         flexDirection: "column",
         bgcolor: "white",
-        maxWidth: {"md:": 800, "xs": 300},
+        maxWidth: {"md:": 800, "xs": 260},
         maxHeight: 500,
         borderRadius: 5,
         boxShadow: 3,
         py: 10,
         px: 5,
-        mt: 5,
+        my: 5,
         minWidth: {"md": 400, "xs": 225},
         justifyContent: "center",
         gap: 3,
@@ -145,7 +145,7 @@ const OrderPage = () => {
         value={address}
         label="Dropoff point">
         {droppoffs.map((dropoff) => (
-          <MenuItem value={dropoff._id}>{dropoff.friendlyName} - {dropoff.address}</MenuItem>
+          <MenuItem value={dropoff._id} key={dropoff._id}>{dropoff.friendlyName} - {dropoff.address}</MenuItem>
         ))}
       </Select>
       </FormControl>

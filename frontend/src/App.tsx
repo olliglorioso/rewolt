@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NanPage from "./components/404Page";
 import SuccessOrderPage from "./components/SuccesOrder";
 import { setToken } from "./redux/store";
+import UserPage from "./components/UserPage";
 
 interface StateT {
   token: string;
@@ -66,6 +67,10 @@ export default function App() {
               <Route
                 path="/successOrder/:trackingUrl"
                 element={tokenExists ? <SuccessOrderPage /> : <LoginPage />}
+              />
+              <Route
+                path="/userInfo"
+                element={tokenExists ? <UserPage /> : <LoginPage />} 
               />
               <Route path="" element={token ? <NanPage /> : <LoginPage />} />
             </Routes>

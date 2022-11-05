@@ -5,7 +5,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { removeToken } from "../redux/store";
 const buttonsInMenu = [{text: "Order", link: "/order"}]
-const buttonsInTooltip = [{text: "Logout", link: "/logout"}]
+const buttonsInTooltip = [{text: "Profile", link: "/userInfo"}, {text: "Logout", link: "/logout"}]
 
 
 const MenuBar = () => {

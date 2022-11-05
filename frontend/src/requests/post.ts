@@ -23,4 +23,13 @@ const registerUser = async (email: string, password: string, phone: string, navi
     }
 }
 
-export { loginUser, registerUser }
+const getOrders = async (email: string, token: string) => {
+    const result = await axios.get(`${baseUrl}/api/${email}/history`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    return result.data
+}
+
+export { loginUser, registerUser, getOrders }

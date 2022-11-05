@@ -67,9 +67,9 @@ export const createDelivery = async (from: string, to: string,
     "comment": "Leave at the door, please"
   },
   "customer_support": {
-    "email": "string",
-    "phone_number": "string",
-    "url": "string"
+    "email": "test@mail.com",
+    "phone_number": "testPhone",
+    "url": "webSite"
   },
   "merchant_order_reference_id": orderId,
   "is_no_contact": true,
