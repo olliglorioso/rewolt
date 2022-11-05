@@ -17,8 +17,13 @@ interface StateT {
 }
 
 export default function App() {
-  const token = useSelector((state: StateT) => state.token)
-  console.log(token)
+  let token = useSelector((state: StateT) => state.token)
+  if (!token || token === "") {
+    token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
+  }
+
+  const tokenExists = token !== "" && token !== undefined 
+
   return (
     <Router>
       <Box>
@@ -29,10 +34,10 @@ export default function App() {
           }
         <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}> <Toolbar />
           <Routes>
-            <Route path="/order" element={token ? <OrderPage /> : <LoginPage />} />
-            <Route path="/register" element={token ? <RegisterPage /> : <LoginPage />} />
+            <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
+            <Route path="/register" element={tokenExists ? <RegisterPage /> : <LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="" element={<div></div>} />
+            <Route path="/" element={<div></div>} />
           </Routes>
         </Box>
       </Box>
