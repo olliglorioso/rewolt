@@ -1,8 +1,9 @@
 import axios from "axios"
 import { setToken } from "../redux/store"
+import { baseUrl } from "../constants"
 
 const loginUser = async (email: string, password: string, navigate: any, dispatch: any) => {
-    const result = await axios.post("http://localhost:4000/api/login", { email, password })
+    const result = await axios.post(`${baseUrl}/api/login`, { email, password })
     const { statusText } = result
     if (statusText === "OK" || statusText === "ok") {
         dispatch(setToken(result.data.token))
@@ -12,10 +13,10 @@ const loginUser = async (email: string, password: string, navigate: any, dispatc
 }
 
 const registerUser = async (email: string, password: string, phone: string, navigate: any, dispatch: any) => {
-    const result: any = await axios.post("http://localhost:4000/api/register", { email, password, phone })
+    const result: any = await axios.post(`${baseUrl}/api/register`, { email, password, phone })
     const { statusText } = result
     if (statusText === "Created" || statusText === "ok") {
-        const loginResult = await axios.post("http://localhost:4000/api/login", { email, password })
+        const loginResult = await axios.post(`${baseUrl}/api/login`, { email, password })
         dispatch(setToken(loginResult.data.token))
         localStorage.setItem("token", loginResult.data.token)
         return navigate("/order")
