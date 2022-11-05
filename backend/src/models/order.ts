@@ -6,15 +6,15 @@ const orderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  address: {
-    type: String,
-    required: true,
+  dropoff: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Dropoff",
   },
   items: [
     {
-      item: {
+      category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Item",
+        ref: "Category",
       },
       quantity: {
         type: Number,
