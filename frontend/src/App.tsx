@@ -17,7 +17,7 @@ interface StateT {
 }
 
 export default function App() {
-  let token = useSelector((state: StateT) => state.token)
+  let token: any = useSelector((state: StateT) => state.token)
   if (!token || token === "") {
     token = localStorage.getItem("token") ? localStorage.getItem("token") : ""
   }
