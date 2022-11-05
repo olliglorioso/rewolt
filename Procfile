@@ -1,1 +1,1 @@
-node backend/dist/index.js
+npm start
