@@ -46,7 +46,7 @@ router.post("/api/order", async (req, res) => {
       },
       {
         name: dropoff.friendlyName,
-        phone: dropoff.phone,
+        phone: "+358404938574",
       },
       title,
       category,
