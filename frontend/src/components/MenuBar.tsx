@@ -2,13 +2,15 @@ import { AppBar, Avatar, Box, Button, buttonBaseClasses, Container, IconButton, 
 import {AccountCircle, MenuBook, Android} from "@mui/icons-material"
 import {Link, useNavigate} from "react-router-dom"
 import React from "react";
-
-const buttonsInMenu = [{text: "About", link: "/about"}, {text: "Marketplace", link: "/marketplace"}, {text: "Users", link: "/users"}]
+import { useDispatch } from "react-redux";
+import { removeToken } from "../redux/store";
+const buttonsInMenu = [{text: "Order", link: "/order"}]
 const buttonsInTooltip = [{text: "Something", link: "/something"}, {text: "Logout", link: "/logout"}]
 
 
 const MenuBar = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -151,16 +153,22 @@ const MenuBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {buttonsInTooltip.map((setting) => (
-                <MenuItem key={setting.text} onClick={e =>
+              {buttonsInTooltip.map((setting) => {
+                return (<MenuItem key={setting.text} onClick={e =>
                   {
+                    if (setting.text === "Logout") {
+                      dispatch(removeToken())
+                      localStorage.removeItem("token")
+                      navigate("/login")
+                      return
+                    } 
                     handleCloseNavMenu()
                     navigate(setting.link)
                   }
                 }>
                   <Typography textAlign="center">{setting.text}</Typography>
-                </MenuItem>
-              ))}
+                </MenuItem>)
+              })}
             </Menu>
           </Box>
         </Toolbar>

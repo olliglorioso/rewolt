@@ -2,7 +2,8 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  redirect
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import React, { useState } from "react";
@@ -23,7 +24,7 @@ export default function App() {
   }
 
   const tokenExists = token !== "" && token !== undefined 
-
+  console.log(token)
   return (
     <Router>
       <Box>
@@ -34,9 +35,9 @@ export default function App() {
           }
         <Box component="main" sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}> <Toolbar />
           <Routes>
-            <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
-            <Route path="/register" element={tokenExists ? <RegisterPage /> : <LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/order" element={tokenExists ? <OrderPage /> : <LoginPage />} />
             <Route path="" element={token ? <div>Nothing here but us chickens</div> : <LoginPage />} />
           </Routes>
         </Box>
