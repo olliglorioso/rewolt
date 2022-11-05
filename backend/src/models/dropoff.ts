@@ -6,16 +6,14 @@ const dropoffSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  position: {
-    lat: {
-      type: Number,
-      required: true,
-    },
-    lng: {
-      type: Number,
-      required: true,
-    },
-  }
+  phone: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
 });
 
 const Dropoff = mongoose.model("Dropoff", dropoffSchema);

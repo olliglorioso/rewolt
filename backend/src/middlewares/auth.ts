@@ -29,8 +29,7 @@ export const requireLogin = async (req: Request, res: Response, next: NextFuncti
         message: "You must be logged in",
       });
     }
-    req.body.userId = payload.userId;
-    req.body.user = user;
+    req.user = user;
   } catch (err) {
     return res.status(401).json({
       message: "You must be logged in",
