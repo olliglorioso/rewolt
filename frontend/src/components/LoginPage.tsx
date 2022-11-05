@@ -1,7 +1,7 @@
-import { Button, TextField, Typography, Box, Link } from "@mui/material";
+import { Button, TextField, Typography, Box } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../requests/post";
 
 const LoginPage = () => {
@@ -56,7 +56,7 @@ const LoginPage = () => {
         Login
       </Button>
       <div>
-        Not registered yet? <Link href="/register">Sign up</Link>
+        Not registered yet? <Link to="/register">Sign up</Link>
       </div>
     </Box>
   );
