@@ -192,10 +192,9 @@ router.post("/api/order", async (req, res) => {
   });
 });
 
-router.get("/api/:userEmail/history", async (req, res) => {
+router.get("/api/history", async (req, res) => {
   try {
-  const uId = await User.find({email: req.params.userEmail})
-  const ordersByUser = await Order.find({user: uId[0]._id})
+  const ordersByUser = await Order.find({user: req.user?._id})
   console.log(ordersByUser)
   return res.status(200).json(ordersByUser)
   } catch (err) {
@@ -203,5 +202,6 @@ router.get("/api/:userEmail/history", async (req, res) => {
     return res.status(400).json({message: "some error"})
   }
 })
+
 
 export default router;

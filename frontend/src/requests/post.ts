@@ -28,7 +28,7 @@ const registerUser = async (email: string, password: string, phone: string, navi
 }
 
 const getOrders = async (email: string, token: string) => {
-    const result = await axios.get(`${baseUrl}/api/${email}/history`, {
+    const result = await axios.get(`${baseUrl}/api/history`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
