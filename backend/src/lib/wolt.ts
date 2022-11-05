@@ -12,15 +12,28 @@ interface DeliveryFee {
   },
   scheduled_dropoff_time: string;
 }
+interface Coordinates {
+  lat: number;
+  lon: number;
+}
 
-
-export const getFee = async (from_address: string, to_address: string): Promise<DeliveryFee> => {
+export const getFee = async (from: Coordinates, to: Coordinates): Promise<DeliveryFee> => {
   const requestBody = {
     pickup: {
-      formatted_address: from_address,
+      location: {
+        coordinates: {
+          lat: from.lat,
+          lon: from.lon,
+        }
+      }
     },
     dropoff: {
-      formatted_address: to_address,
+      location: {
+        coordinates: {
+          lat: to.lat,
+          lon: to.lon,
+        }
+      }
     },
   };
   const response = await axios.post(`${BASE_URL}/merchants/${MERCHANT_ID}/delivery-fee`, requestBody, {
@@ -30,3 +43,5 @@ export const getFee = async (from_address: string, to_address: string): Promise<
   });
   return response.data as DeliveryFee;
 }
+
+
