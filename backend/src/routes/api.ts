@@ -11,6 +11,8 @@ router.get("/api/dropoffs", async (req, res) => {
   return res.json(dropoffs);
 });
 
+router.post()
+
 router.post("/api/fee", async (req, res) => {
   const { dropoffId, category } = req.body as {
     dropoffId: string;
@@ -27,6 +29,47 @@ router.post("/api/fee", async (req, res) => {
   return res.json(fee);
 });
 
+
+
+router.get("/api/listing", async (req, res) => {
+  if(!req.user){
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
+  const orders = await Order.find({status: "pending"});
+  return res.json(orders);
+})
+
+router.post("/api/listing", async (req, res) => {
+  if(!req.user) {
+    return res.status(401).json({
+      message: "You must be logged in",
+    });
+  }
+  const { dropoffId, title, category, price } = req.body as {
+    dropoffId: string;
+    title: string;
+    category: string;
+    price: number;
+  };
+  const dropoff = await Dropoff.findById(dropoffId);
+  if (!dropoff) {
+    return res.status(400).json({
+      message: "Dropoff not found",
+    });
+  }
+
+  const order = new Order({
+    dropoff,
+    user: req.user,
+    title: title,
+    category: category,
+    price,
+    status: "pending"
+  });
+  await order.save();
+});
 
 router.post("/api/order", async (req, res) => {
   if(!req.user) {
@@ -45,13 +88,6 @@ router.post("/api/order", async (req, res) => {
       message: "Dropoff not found",
     });
   }
-  const order = new Order({
-    dropoff,
-    user: req.user,
-    title: req.body.title,
-    category: req.body.category,
-  });
-  await order.save();
     
   const dumpLocation = await getDumpLocation(dropoff.lat, dropoff.lon, category);
   console.log(dumpLocation);

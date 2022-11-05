@@ -18,6 +18,15 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  price: {
+    type: Number,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+    enum: ["pending", "bought"]
+  }
 });
 
 const Order = mongoose.model("Order", orderSchema);
