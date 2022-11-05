@@ -13,8 +13,8 @@ const orderSchema = new mongoose.Schema({
   items: [
     {
       category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
+        type: String,
+        required: true,
       },
       quantity: {
         type: Number,
