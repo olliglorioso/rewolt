@@ -1,4 +1,4 @@
-import { Button, TextField, Typography, Box } from "@mui/material";
+import { Button, TextField, Typography, Box, Link } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../requests/post";
@@ -9,7 +9,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     await registerUser(email, password, navigate, dispatch);
   };
@@ -55,6 +55,9 @@ const RegisterPage = () => {
       <Button onClick={handleSubmit} variant="contained" color="info">
         Register now
       </Button>
+      <div>
+        Already registered? <Link href="/login">Sign in</Link>
+      </div>
     </Box>
   );
 };
