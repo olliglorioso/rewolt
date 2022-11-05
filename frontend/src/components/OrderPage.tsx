@@ -47,7 +47,7 @@ interface DropOff {
 
 const OrderPage = () => {
   const theme = useTheme();
-  const [categoriesSelected, setCategoriesSelected] = useState<string[]>([]);
+  const [categoriesSelected, setCategoriesSelected] = useState<string>([]);
   const [title, setTitle] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const navigate = useNavigate();
@@ -81,19 +81,37 @@ const OrderPage = () => {
     } = event;
     setCategoriesSelected(
       // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
+      value
     );
   };
 
   const clearAll = () => {
-    setCategoriesSelected([]);
+    setCategoriesSelected("");
     setAddress("");
     setTitle("");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(title, address, categoriesSelected);
-    return navigate("/successfulOrder");
+    try {
+      const response = await axios.post(
+      "http://localhost:4000/api/order",
+      {
+        title,
+        dropoffId: address,
+        category: categoriesSelected,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return navigate("/successfulOrder");
+    } catch(err){
+      console.log(err);
+    }
+    
+
   };
 
   return (
@@ -130,7 +148,8 @@ const OrderPage = () => {
       <Select
         labelId="dropoff-label"
         onChange={(e) => setAddress(e.target.value)}
-        value={address}>
+        value={address}
+        label="Dropoff point">
         {droppoffs.map((dropoff) => (
           <MenuItem value={dropoff._id}>{dropoff.friendlyName} - {dropoff.address}</MenuItem>
         ))}
@@ -142,24 +161,15 @@ const OrderPage = () => {
         <Select
           labelId="multiple-chip-label"
           id="multiple-chip"
-          multiple
           value={categoriesSelected}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Categories" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
           MenuProps={MenuProps}
         >
           {categories.map((name) => (
             <MenuItem
               key={name}
               value={name}
-              style={getStyles(name, categoriesSelected, theme)}
             >
               {name}
             </MenuItem>
