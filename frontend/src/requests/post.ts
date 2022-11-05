@@ -33,25 +33,87 @@ const loginUser = async (email: string, password: string, navigate: any, dispatc
 }
 
 const registerUser = async (email: string, password: string, phone: string, navigate: any, dispatch: any) => {
-    const result: any = await axios.post(`${baseUrl}/api/register`, { email, password, phone })
-    const { statusText } = result
-    if (statusText === "Created" || statusText === "ok") {
-        const loginResult = await axios.post(`${baseUrl}/api/login`, { email, password })
-        dispatch(setToken(loginResult.data.token))
-        dispatch(setEmail(result.data.email))
-        localStorage.setItem("token", loginResult.data.token)
-        localStorage.setItem("email", result.data.email)
-        return navigate("/order")
+    try {
+        const result: any = await axios.post(`${baseUrl}/api/register`, { email, password, phone })
+        const { statusText } = result
+        if (statusText === "Created" || statusText === "ok") {
+            const loginResult = await axios.post(`${baseUrl}/api/login`, { email, password })
+            dispatch(setToken(loginResult.data.token))
+            dispatch(setEmail(result.data.email))
+            localStorage.setItem("token", loginResult.data.token)
+            localStorage.setItem("email", result.data.email)
+            return navigate("/order")
+        }
+    } catch (e: any) {
+        Store.addNotification({
+            title: "Error!",
+            message: "Something went wrong.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
     }
 }
 
 const getOrders = async (email: string, token: string) => {
-    const result = await axios.get(`${baseUrl}/api/history`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    return result.data
+    try {
+        const result = await axios.get(`${baseUrl}/api/history`, {
+            headers: {
+            Authorization: `Bearer ${token}`,
+            },
+        })
+        return result.data
+    } catch (e: any) {
+        Store.addNotification({
+            title: "Error!",
+            message: "Something went wrong.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
+    }
+
 }
 
-export { loginUser, registerUser, getOrders }
+const newListing = async (dropoffId: string, category: string, title: string, price: string, token: string) => {
+    try {
+        const price2 = parseFloat(price)
+        const result = await axios.post(`${baseUrl}/api/listing`, 
+            {data: { dropoffId, title, price: price2, category },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }},
+        )
+        console.log(result)
+    } catch (e: any) {
+        console.log(e)
+        Store.addNotification({
+            title: "Error!",
+            message: "Something went wrong.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
+    }
+
+}
+
+export { loginUser, registerUser, getOrders, newListing }

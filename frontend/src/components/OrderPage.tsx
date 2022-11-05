@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   Chip,
   Divider,
   FormControl,
@@ -20,6 +21,7 @@ import { Form, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../constants";
 import { Store } from 'react-notifications-component';
+import { newListing } from "../requests/post";
 
 
 const ITEM_HEIGHT = 48;
@@ -45,6 +47,8 @@ const OrderPage = () => {
   const [categoriesSelected, setCategoriesSelected] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [price, setPrice] = useState<string>("");
+  const [isListing, setIsListing] = useState<boolean>(false);
   const navigate = useNavigate();
   const token = useSelector((state: any) => state.token);
 
@@ -87,10 +91,27 @@ const OrderPage = () => {
   };
 
   const handleSubmit = async () => {
-    console.log(title, address, categoriesSelected);
     try {
       if (!address || !title  || (address.length === 0) || (title.length === 0)) {
        throw "Please fill all the fields correctly." 
+      }
+      if (isListing) {
+        await newListing(address, categoriesSelected, title, price, token);
+        Store.addNotification({
+          title: "Success!",
+          message: "Your listing has been created.",
+          type: "success",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 3000,
+            onScreen: true,
+          },
+        });
+        clearAll();
+        return
       }
       const response = await axios.post(
       `${baseUrl}/api/order`,
@@ -106,7 +127,7 @@ const OrderPage = () => {
       });
       const trackingUrl = response.data.delivery.tracking.url
       return navigate(`/successOrder/${encodeURIComponent(trackingUrl)}`);
-    } catch(err) {
+    } catch(err: any) {
       Store.addNotification({
         title: "Error!",
         message: err ? err : "Something went wrong." ,
@@ -133,7 +154,6 @@ const OrderPage = () => {
         flexDirection: "column",
         bgcolor: "white",
         maxWidth: {"md:": 800, "xs": 260},
-        maxHeight: 500,
         borderRadius: 5,
         boxShadow: 3,
         py: 10,
@@ -145,8 +165,13 @@ const OrderPage = () => {
       }}
     >
       <Typography variant="h3" textAlign="center">
-        Make a new order
+        Make a new order/listing
       </Typography>
+      <Divider />
+      <div>
+        <label>Is listing?</label>
+        <Checkbox checked={isListing} onChange={() => setIsListing(!isListing)} />
+      </div>
       <TextField
         label="Title"
         helperText="Title for your order. Max 40 symbols"
@@ -187,6 +212,20 @@ const OrderPage = () => {
             </MenuItem>
           ))}
         </Select>
+        {isListing && (
+          <div>
+            <br />
+            <Divider />
+            <br />
+            <TextField
+              label="Price"
+              helperText="Price for your listing."
+              variant="outlined"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+        )}
       </FormControl>
       <Box
         sx={{

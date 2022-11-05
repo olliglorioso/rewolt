@@ -161,7 +161,6 @@ router.post("/api/order", async (req, res) => {
   }
     
   const dumpLocation = await getDumpLocation(dropoff.lat, dropoff.lon, category);
-  console.log(dumpLocation);
   let delivery;
   try {
 
@@ -181,6 +180,8 @@ router.post("/api/order", async (req, res) => {
       category,
       ""
     );
+    // create a new order and save it to mongodb
+    
   } catch(err){
     return res.status(400).json({
       message: "Error creating delivery",
