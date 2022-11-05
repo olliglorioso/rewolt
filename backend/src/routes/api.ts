@@ -1,7 +1,7 @@
 import { Router } from "express";
 import Dropoff from "../models/dropoff";
 import Order from "../models/order";
-import { createDelivery } from "../lib/wolt";
+import { createDelivery, getFee } from "../lib/wolt";
 const router = Router();
 
 router.get("/api/dropoffs", async (req, res) => {
@@ -9,6 +9,24 @@ router.get("/api/dropoffs", async (req, res) => {
   const dropoffs = await Dropoff.find({});
   return res.json(dropoffs);
 });
+
+router.post("/api/fee", async (req, res) => {
+  const { dropoffId, title, category } = req.body as {
+    dropoffId: string;
+    title: string;
+    category: string;
+  };
+  const dropoff = await Dropoff.findById(dropoffId);
+  if (!dropoff) {
+    return res.status(400).json({
+      message: "Dropoff not found",
+    });
+  }
+
+  const fee = await getFee(dropoff.address, "Korkeavuorenkatu 5, 00100 Helsinki");
+  return res.json(fee);
+});
+
 
 router.post("/api/order", async (req, res) => {
   if(!req.user) {
