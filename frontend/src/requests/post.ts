@@ -11,8 +11,8 @@ const loginUser = async (email: string, password: string, navigate: any, dispatc
     }
 }
 
-const registerUser = async (email: string, password: string, navigate: any, dispatch: any) => {
-    const result: any = await axios.post("http://localhost:4000/api/register", { email, password })
+const registerUser = async (email: string, password: string, phone: string, navigate: any, dispatch: any) => {
+    const result: any = await axios.post("http://localhost:4000/api/register", { email, password, phone })
     const { statusText } = result
     if (statusText === "Created" || statusText === "ok") {
         const loginResult = await axios.post("http://localhost:4000/api/login", { email, password })
