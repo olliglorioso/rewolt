@@ -1,2 +1,2 @@
-export const baseUrl = "https://rewolt-app-uxsxrlriaa-oa.a.run.app"
+export const baseUrl = "https://rewolt.herokuapp.com"
 // moi
