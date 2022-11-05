@@ -1,5 +1,6 @@
 import { Box, Button, Chip, Divider, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField, Theme, Typography, useTheme } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,6 +29,7 @@ const OrderPage = () => {
   const [categoriesSelected, setCategoriesSelected] = useState<string[]>([])
   const [title, setTitle] = useState<string>("")
   const [address, setAddress] = useState<string>("")
+  const navigate = useNavigate()
 
   const handleChange = (event: SelectChangeEvent<typeof categoriesSelected>) => {
     const {
@@ -47,6 +49,7 @@ const OrderPage = () => {
 
   const handleSubmit = () => {
     console.log(title, address, categoriesSelected)
+    return navigate("/success")
   }
 
   return (
