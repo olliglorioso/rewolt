@@ -2,9 +2,19 @@ import mongoose from "mongoose";
 
 
 const dropoffSchema = new mongoose.Schema({
-  address: {
+  friendName: {
     type: String,
     required: true,
+  },
+  position: {
+    lat: {
+      type: Number,
+      required: true,
+    },
+    lng: {
+      type: Number,
+      required: true,
+    },
   }
 });
 
