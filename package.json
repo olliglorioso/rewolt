@@ -4,11 +4,12 @@
   "description": "Rewolt app.",
   "main": "backend/dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/dist/index.js",
   },
   "repository": {
     "type": "git",
-    "start": "node backend/dist/index.js",
+    
     "url": "git+https://github.com/olliglorioso/rewolt.git"
   },
   "author": "",
