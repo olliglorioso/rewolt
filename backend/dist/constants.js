@@ -1,0 +1,5 @@
+const item_types = [
+    'broken_pc',
+    'broken_phone',
+];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uc3RhbnRzLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsiY29uc3RhbnRzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sVUFBVSxHQUFHO0lBQ2pCLFdBQVc7SUFDWCxjQUFjO0NBQ2YsQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbImNvbnN0IGl0ZW1fdHlwZXMgPSBbXG4gICdicm9rZW5fcGMnLFxuICAnYnJva2VuX3Bob25lJyxcbl0iXX0=

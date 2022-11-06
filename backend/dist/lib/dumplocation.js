@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getDumpLocation = void 0;
+const axios = require("axios");
+const BASE_URL = "https://dump-location-uxsxrlriaa-lm.a.run.app";
+const getDumpLocation = async (lat, lon, type) => {
+    const response = await axios.post(`${BASE_URL}`, {
+        location: [lat, lon],
+        type: type.toLowerCase()
+    });
+    return response.data;
+};
+exports.getDumpLocation = getDumpLocation;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZHVtcGxvY2F0aW9uLmpzIiwic291cmNlUm9vdCI6Ii4vc3JjLyIsInNvdXJjZXMiOlsibGliL2R1bXBsb2NhdGlvbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBQSxNQUFNLEtBQUssR0FBRyxPQUFPLENBQUMsT0FBTyxDQUFDLENBQUM7QUFDL0IsTUFBTSxRQUFRLEdBQUcsK0NBQStDLENBQUM7QUFPMUQsTUFBTSxlQUFlLEdBQUcsS0FBSyxFQUFFLEdBQVcsRUFBRSxHQUFXLEVBQUUsSUFBWSxFQUF5QixFQUFFO0lBQ3JHLE1BQU0sUUFBUSxHQUFHLE1BQU0sS0FBSyxDQUFDLElBQUksQ0FBQyxHQUFHLFFBQVEsRUFBRSxFQUFFO1FBQy9DLFFBQVEsRUFBRSxDQUFDLEdBQUcsRUFBRSxHQUFHLENBQUM7UUFDcEIsSUFBSSxFQUFFLElBQUksQ0FBQyxXQUFXLEVBQUU7S0FDekIsQ0FBQyxDQUFDO0lBQ0gsT0FBTyxRQUFRLENBQUMsSUFBSSxDQUFDO0FBQ3ZCLENBQUMsQ0FBQTtBQU5ZLFFBQUEsZUFBZSxtQkFNM0IiLCJzb3VyY2VzQ29udGVudCI6WyJjb25zdCBheGlvcyA9IHJlcXVpcmUoXCJheGlvc1wiKTtcbmNvbnN0IEJBU0VfVVJMID0gXCJodHRwczovL2R1bXAtbG9jYXRpb24tdXhzeHJscmlhYS1sbS5hLnJ1bi5hcHBcIjtcblxuaW50ZXJmYWNlIER1bXBMb2NhdGlvbiB7XG4gIHN0cmVldEFkZHJlc3M6IHN0cmluZztcbiAgcGhvbmVOdW1iZXI6IHN0cmluZztcbn1cblxuZXhwb3J0IGNvbnN0IGdldER1bXBMb2NhdGlvbiA9IGFzeW5jIChsYXQ6IG51bWJlciwgbG9uOiBudW1iZXIsIHR5cGU6IHN0cmluZyk6IFByb21pc2U8RHVtcExvY2F0aW9uPiA9PiB7XG4gIGNvbnN0IHJlc3BvbnNlID0gYXdhaXQgYXhpb3MucG9zdChgJHtCQVNFX1VSTH1gLCB7XG4gICAgbG9jYXRpb246IFtsYXQsIGxvbl0sXG4gICAgdHlwZTogdHlwZS50b0xvd2VyQ2FzZSgpXG4gIH0pO1xuICByZXR1cm4gcmVzcG9uc2UuZGF0YTtcbn0iXX0=
