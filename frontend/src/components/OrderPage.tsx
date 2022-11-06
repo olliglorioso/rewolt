@@ -63,7 +63,7 @@ const OrderPage = () => {
   useEffect(() => {
     let isMounted = true;
     const getDropoffs = async () => {
-      const response = await axios.get("http://localhost:4000/api/dropoffs", {
+      const response = await axios.get("https://rewolt.herokuapp.com/api/dropoffs", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
