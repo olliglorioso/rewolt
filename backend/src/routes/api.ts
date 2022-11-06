@@ -27,16 +27,18 @@ router.post("/api/listing/deliveryprice", async (req, res) => {
       message: "Dropoff not found",
     });
   }
-  console.log("dropoff", dropoff.address, address);
+
   const fee = await getFee(dropoff.address, address);
   return res.json({
     fee,
   });
 });
 
-router.post("/api/buy", async (req, res): Promise<void> => {
+router.post("/api/buy", async (req, res) => {
   // buy
-  const { orderId, address, comment } = req.body;
+  console.log(req.body)
+  const { orderId, əddress } = req.body;
+  console.log("ADDRESS IS", əddress)
   const order = await Order.findById(orderId);
   if (!order || order.status !== "pending") {
     res.status(400).json({
@@ -66,10 +68,11 @@ router.post("/api/buy", async (req, res): Promise<void> => {
     });
     return;
   }
-  await createDelivery(
+  console.log(dropoff, əddress, seller.email, seller.phone, req.user, order._id)
+  const delivery = await createDelivery(
     dropoff.address,
-    address,
-    `dropoff - ${order.title} - ${order.category}`,
+    əddress,
+    `dropoff - ${"Moi"} - ${"comment"}`,
     {
       name: seller.email,
       phone: seller.phone,
@@ -78,13 +81,16 @@ router.post("/api/buy", async (req, res): Promise<void> => {
       name: req.user.email,
       phone: req.user.phone,
     },
-    order.title,
-    order.category,
+    "dogi",
+    "Electronis",
     order._id.toString(),
-    comment
+    "koira"
   )
   order.status = "bought";
   await order.save();
+  return res.json({
+    delivery
+  });
 });
 
 router.post("/api/fee", async (req, res) => {

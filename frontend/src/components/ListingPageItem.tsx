@@ -16,6 +16,9 @@ import React, { useState } from "react";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { getFee } from "../requests/post";
+import axios from "axios";
+import { baseUrl } from "../constants";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   listing: any;
@@ -38,24 +41,45 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export default function ListingPageitem(props: IProps) {
-
+  const [əddress, setAddress] = useState<string>("");
   const { listing, token } = props;
+  const navigate = useNavigate()
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [address, setAddress] = useState<string>(props.listing.address)
   const [comment, setComment] = useState<string>(props.listing.comment)
   const [fee, setFee] = useState<number>(0)
 
+  const handleButtonCheckClickFee = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const woltsFee = await checkFee()
+    setFee(woltsFee?.amount /100 || 0)
+  }
+
   const checkFee = async () => {
-    const fee = await getFee(listing._id, address, token)
+    console.log(əddress)
+    let addressText = əddress
+    const fee = await getFee(listing._id, əddress, token)
     return fee
   }
 
-  const handleButtonCheckClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const woltsFee = await checkFee()
-    setFee(woltsFee?.amount /100 || 0)
+  const handleButtonCheckClick = async (linstig: string) => {
+    console.log(linstig)
+    console.log(əddress)
+    const response = await axios.post(
+      `${baseUrl}/api/buy`,
+      {
+        orderId: linstig,
+        əddress,
+        comment: "Electronics"
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const trackingUrl = response.data.delivery.tracking.url
+      return navigate(`/successOrder/${encodeURIComponent(trackingUrl)}`);
   }
 
   return (
@@ -112,11 +136,14 @@ export default function ListingPageitem(props: IProps) {
               <TextField label="Comment" id={`${listing._id}-comment`} onChange={e => setComment(e.target.value)}/>
             </Box>
             <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 1}}>
-              <Button variant="contained" onClick={handleButtonCheckClick}>Check</Button>
+              <Button variant="contained" onClick={handleButtonCheckClickFee}>Check</Button>
               <Box>
                 <Typography variant="caption">Wolt's fee: {`${fee}`}</Typography>
                 <Typography variant="body1">Total price: {fee + listing.price}</Typography>
               </Box>
+            </Box>
+            <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 1}}>
+              <Button variant="contained" onClick={() => handleButtonCheckClick(listing._id)}>Buy</Button>
             </Box>
           </CardContent>
         </Collapse>
