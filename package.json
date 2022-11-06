@@ -1,0 +1,22 @@
+{
+    "name": "rewolt",
+    "version": "1.0.0",
+    "description": "Rewolt app.",
+    "main": "backend/dist/index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "cd backend && npm install && node dist/index.js"
+    },
+    "repository": {
+      "type": "git",
+      
+      "url": "git+https://github.com/olliglorioso/rewolt.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/olliglorioso/rewolt/issues"
+    },
+    "homepage": "https://github.com/olliglorioso/rewolt#readme"
+  }
+  
