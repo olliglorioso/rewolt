@@ -28,6 +28,7 @@ import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 
 import ListingPage from "./components/ListingPage";
+import SuccessListingPage from "./components/SuccessListing";
 
 interface StateT {
   token: string;
@@ -80,6 +81,10 @@ export default function App() {
               <Route
                 path="/successOrder/:trackingUrl"
                 element={tokenExists ? <SuccessOrderPage /> : <LoginPage />}
+              />
+              <Route
+                path="/successListing"
+                element={tokenExists ? <SuccessListingPage /> : <LoginPage />}
               />
               <Route
                 path="/userInfo"

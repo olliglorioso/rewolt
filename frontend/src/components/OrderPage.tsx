@@ -97,21 +97,8 @@ const OrderPage = () => {
       }
       if (isListing) {
         await newListing(address, categoriesSelected, title, price, token);
-        Store.addNotification({
-          title: "Success!",
-          message: "Your listing has been created.",
-          type: "success",
-          insert: "top",
-          container: "top-right",
-          animationIn: ["animated", "fadeIn"],
-          animationOut: ["animated", "fadeOut"],
-          dismiss: {
-            duration: 3000,
-            onScreen: true,
-          },
-        });
         clearAll();
-        return
+        return navigate("/successListing");
       }
       const response = await axios.post(
       `${baseUrl}/api/order`,

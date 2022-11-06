@@ -4,9 +4,8 @@ import React from "react";
 import "./success.scss"
 import { useLocation } from "react-router-dom";
 
-const SuccessOrderPage = () => {
+const SuccessListingPage = () => {
   const navigate = useNavigate();
-  const trackingUrl = useParams().trackingUrl;
   return (
     <Box
       sx={{
@@ -34,8 +33,7 @@ const SuccessOrderPage = () => {
         </div>
       </div>
       <Typography variant="h5" textAlign="center">
-        The order has been submitted successfully. You can track your order{" "}
-        <a href={trackingUrl}>here</a>
+        The listing has been submitted successfully. 
       </Typography>
       <Button onClick={(e) => navigate("/order")} variant="contained">
         Make another one
@@ -47,4 +45,4 @@ const SuccessOrderPage = () => {
   );
 };
 
-export default SuccessOrderPage;
+export default SuccessListingPage;

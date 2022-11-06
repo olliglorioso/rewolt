@@ -97,19 +97,6 @@ const newListing = async (dropoffId: string, category: string, title: string, pr
             },
         )
         console.log(result)
-        Store.addNotification({
-            title: "Success!",
-            message: "Listing created.",
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: true
-            }
-        });
     } catch (e: any) {
         Store.addNotification({
             title: "Error!",
