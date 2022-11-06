@@ -22,15 +22,9 @@ app.use(express.static("./build"))
 const DB_URL = process.env.DB_URL;
 mongoose.connect(DB_URL || "");
 
-app.use(async (req, res, next) => {
-  try {
-    await next();
-  } catch(err){
-    res.status(500).json({
-      message: err.message,
-    });
-  }
-});
+app.use((err: any, req: any, res: any, next: any) => {
+  res.status(500).json({"msg": "Something broke!"})
+})
 
 app.use((req, res, next) => {
   if(req.url.startsWith("/api")) {
