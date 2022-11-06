@@ -118,10 +118,9 @@ const newListing = async (dropoffId: string, category: string, title: string, pr
 const getFee = async (id: string, address: string, token: string) => {
     try {
         const fee = await axios.post(`${baseUrl}/api/listing/deliveryprice`, {
-            data: {
                 orderId: id,
                 address: address
-            },
+            },{
             headers: {
                 Authorization: `Bearer ${token}`,
             },

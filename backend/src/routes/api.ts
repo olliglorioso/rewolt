@@ -27,7 +27,7 @@ router.post("/api/listing/deliveryprice", async (req, res) => {
       message: "Dropoff not found",
     });
   }
-
+  console.log("dropoff", dropoff.address, address);
   const fee = await getFee(dropoff.address, address);
   return res.json({
     fee,

@@ -7,6 +7,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  Modal,
   OutlinedInput,
   Select,
   SelectChangeEvent,
@@ -53,6 +54,11 @@ const OrderPage = () => {
   const token = useSelector((state: any) => state.token);
 
   const [droppoffs, setDroppoffs] = useState<DropOff[]>([]);
+
+  const [open, setOpen] = React.useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -229,6 +235,34 @@ const OrderPage = () => {
           Create
         </Button>
       </Box>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          border: "0px"
+        }}
+      >
+        <Box sx={{
+          
+          position: 'absolute' as 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          border: "0px",
+          p: 4,
+        }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Confirm your order
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
     </Box>
   );
 };
