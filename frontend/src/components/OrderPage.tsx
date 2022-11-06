@@ -130,7 +130,7 @@ const OrderPage = () => {
     } catch(err: any) {
       Store.addNotification({
         title: "Error!",
-        message: err ? err : "Something went wrong." ,
+        message: "Something went wrong." ,
         type: "danger",
         insert: "top",
         container: "top-right",
