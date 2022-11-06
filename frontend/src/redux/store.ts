@@ -26,6 +26,4 @@ export const tokenSlice = createSlice({
 
 export const { setToken, removeToken, setEmail, removeEmail } = tokenSlice.actions
 
-export default configureStore({
-  reducer: tokenSlice.reducer
-})
+export default tokenSlice.reducer;

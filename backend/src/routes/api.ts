@@ -36,9 +36,9 @@ router.post("/api/listing/deliveryprice", async (req, res) => {
 
 router.post("/api/buy", async (req, res): Promise<void> => {
   // buy
-  const { orderId, address } = req.body;
+  const { orderId, address, comment } = req.body;
   const order = await Order.findById(orderId);
-  if (!order) {
+  if (!order || order.status !== "pending") {
     res.status(400).json({
       message: "Order not found",
     });
@@ -69,7 +69,7 @@ router.post("/api/buy", async (req, res): Promise<void> => {
   await createDelivery(
     dropoff.address,
     address,
-    "dunno",
+    `dropoff - ${order.title} - ${order.category}`,
     {
       name: seller.email,
       phone: seller.phone,
@@ -80,8 +80,11 @@ router.post("/api/buy", async (req, res): Promise<void> => {
     },
     order.title,
     order.category,
-    order._id.toString()
+    order._id.toString(),
+    comment
   )
+  order.status = "bought";
+  await order.save();
 });
 
 router.post("/api/fee", async (req, res) => {
@@ -113,33 +116,40 @@ router.get("/api/listing", async (req, res) => {
 })
 
 router.post("/api/listing", async (req, res) => {
-  if(!req.user) {
-    return res.status(401).json({
-      message: "You must be logged in",
+  try {  
+    if(!req.user) {
+      return res.status(401).json({
+        message: "You must be logged in",
+      });
+    }
+    console.log(req.body)
+    const { dropoffId, title, category, price } = req.body as {
+      dropoffId: string;
+      title: string;
+      category: string;
+      price: number;
+    };
+    const dropoff = await Dropoff.findById(dropoffId);
+    if (!dropoff) {
+      return res.status(400).json({
+        message: "Dropoff not found",
+      });
+    }
+    const order = new Order({
+      dropoff,
+      user: req.user,
+      title: title,
+      category: category,
+      price,
+      status: "pending"
     });
+    await order.save();
+    console.log("ready")
+    return res.status(200).json({ "dog": "cat" })
+  } catch (e) {
+    console.log(e)
+    return res.status(400)
   }
-  const { dropoffId, title, category, price } = req.body as {
-    dropoffId: string;
-    title: string;
-    category: string;
-    price: number;
-  };
-  const dropoff = await Dropoff.findById(dropoffId);
-  if (!dropoff) {
-    return res.status(400).json({
-      message: "Dropoff not found",
-    });
-  }
-
-  const order = new Order({
-    dropoff,
-    user: req.user,
-    title: title,
-    category: category,
-    price,
-    status: "pending"
-  });
-  return await order.save();
 });
 
 router.post("/api/order", async (req, res) => {
@@ -167,7 +177,7 @@ router.post("/api/order", async (req, res) => {
     delivery = await createDelivery(
       dropoff.address,
       dumpLocation.streetAddress,
-      "come fast",
+      "dropoff box - " + title + " - " + category,
       {
         name: req.user.email,
         phone: req.user.phone || "+358404342342",
@@ -178,6 +188,7 @@ router.post("/api/order", async (req, res) => {
       },
       title,
       category,
+      "",
       ""
     );
     // create a new order and save it to mongodb

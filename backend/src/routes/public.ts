@@ -61,6 +61,7 @@ router.post("/api/register", async (req, res) => {
   const user = new User({
     email,
     password: await bcrypt.hash(password, 10),
+    phone: "+358404839238"
   });
 
     
