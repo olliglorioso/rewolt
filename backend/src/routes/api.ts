@@ -38,7 +38,7 @@ router.post("/api/buy", async (req, res): Promise<void> => {
   // buy
   const { orderId, address, comment } = req.body;
   const order = await Order.findById(orderId);
-  if (!order) {
+  if (!order || order.status !== "pending") {
     res.status(400).json({
       message: "Order not found",
     });
@@ -83,6 +83,8 @@ router.post("/api/buy", async (req, res): Promise<void> => {
     order._id.toString(),
     comment
   )
+  order.status = "bought";
+  await order.save();
 });
 
 router.post("/api/fee", async (req, res) => {
