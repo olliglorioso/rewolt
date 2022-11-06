@@ -44,24 +44,18 @@ export default function ListingPageitem(props: IProps) {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  console.log(token)
+  const [address, setAddress] = useState<string>(props.listing.address)
+  const [comment, setComment] = useState<string>(props.listing.comment)
   const [fee, setFee] = useState<number>(0)
 
   const checkFee = async () => {
-    const addressEl = document.getElementById(`${listing._id}-address`)
-    //const commentEl = document.getElementById(`${listing._id}-comment`)
-    let addressText = ""
-    if (addressEl) {
-      let addressText = addressEl.textContent || ""
-      //let commentText = commentEl.textContent || ""
-    }
-    const fee = await getFee(listing._id, addressText, token)
+    const fee = await getFee(listing._id, address, token)
     return fee
   }
 
   const handleButtonCheckClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const woltsFee = await checkFee()
-    setFee(woltsFee?.amount || 0)
+    setFee(woltsFee?.amount /100 || 0)
   }
 
   return (
@@ -114,13 +108,14 @@ export default function ListingPageitem(props: IProps) {
           <CardContent>
             <Typography variant="body1">Check the total price here:</Typography>
             <Box sx={{display: "flex", flexDirection: "row", gap: 3}}>
-              <TextField label="Address" variant="filled" id={`${listing._id}-address`}  />
-              <TextField label="Comment" id={`${listing._id}-comment`}  />
+              <TextField label="Address" variant="filled" id={`${listing._id}-address`} onChange={e => setAddress(e.target.value)}/>
+              <TextField label="Comment" id={`${listing._id}-comment`} onChange={e => setComment(e.target.value)}/>
             </Box>
             <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", mt: 1}}>
               <Button variant="contained" onClick={handleButtonCheckClick}>Check</Button>
               <Box>
                 <Typography variant="caption">Wolt's fee: {`${fee}`}</Typography>
+                <Typography variant="body1">Total price: {fee + listing.price}</Typography>
               </Box>
             </Box>
           </CardContent>

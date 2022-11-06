@@ -125,7 +125,7 @@ const getFee = async (id: string, address: string, token: string) => {
                 Authorization: `Bearer ${token}`,
             },
         })
-        return fee.data.fee as {amount: number, currency: string}
+        return fee.data.fee.fee
     } catch (err: any) {
         console.log(err)
         Store.addNotification({
