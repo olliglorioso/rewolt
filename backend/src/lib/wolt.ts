@@ -42,6 +42,7 @@ export const createDelivery = async (from: string, to: string,
   pickupContact: ContactDetails, dropoffContact: ContactDetails,
   title: string, category: string,
   orderId: string,
+  comment2: string
   ): Promise<void> => {
  const body = {
   "pickup": {
@@ -64,7 +65,7 @@ export const createDelivery = async (from: string, to: string,
       phone_number: pickupContact.phone,
       "send_tracking_link_sms": false
     },
-    "comment": "Leave at the door, please"
+    "comment": comment2
   },
   "customer_support": {
     "email": "test@mail.com",

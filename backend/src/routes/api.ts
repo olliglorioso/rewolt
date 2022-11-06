@@ -36,7 +36,7 @@ router.post("/api/listing/deliveryprice", async (req, res) => {
 
 router.post("/api/buy", async (req, res): Promise<void> => {
   // buy
-  const { orderId, address } = req.body;
+  const { orderId, address, comment } = req.body;
   const order = await Order.findById(orderId);
   if (!order) {
     res.status(400).json({
@@ -69,7 +69,7 @@ router.post("/api/buy", async (req, res): Promise<void> => {
   await createDelivery(
     dropoff.address,
     address,
-    "dunno",
+    `dropoff - ${order.title} - ${order.category}`,
     {
       name: seller.email,
       phone: seller.phone,
@@ -80,7 +80,8 @@ router.post("/api/buy", async (req, res): Promise<void> => {
     },
     order.title,
     order.category,
-    order._id.toString()
+    order._id.toString(),
+    comment
   )
 });
 
@@ -167,7 +168,7 @@ router.post("/api/order", async (req, res) => {
     delivery = await createDelivery(
       dropoff.address,
       dumpLocation.streetAddress,
-      "come fast",
+      "dropoff box - " + title + " - " + category,
       {
         name: req.user.email,
         phone: req.user.phone || "+358404342342",
@@ -178,6 +179,7 @@ router.post("/api/order", async (req, res) => {
       },
       title,
       category,
+      "",
       ""
     );
     // create a new order and save it to mongodb
