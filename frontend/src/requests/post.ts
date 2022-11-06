@@ -116,4 +116,35 @@ const newListing = async (dropoffId: string, category: string, title: string, pr
 
 }
 
-export { loginUser, registerUser, getOrders, newListing }
+const getFee = async (id: string, address: string, token: string) => {
+    try {
+        const fee = await axios.post(`${baseUrl}/api/listing/deliveryprice`, {
+            data: {
+                orderId: id,
+                address: address
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        return fee.data.fee as {amount: number, currency: string}
+    } catch (err: any) {
+        console.log(err)
+        Store.addNotification({
+            title: "Error!",
+            message: "Something went wrong.",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: true
+            }
+        });
+    }
+
+}
+
+export { loginUser, registerUser, getOrders, newListing, getFee }

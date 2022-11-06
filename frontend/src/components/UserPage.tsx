@@ -12,7 +12,6 @@ const UserPage = () => {
     const temp = async () => await getOrders(email, token)
     temp().then(x => setOrders(x.map((y: { title: any; }) => y.title)))
   }, [])
-  console.log(orders)
   return (
     <Box
       sx={{

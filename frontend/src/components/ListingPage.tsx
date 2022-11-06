@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {Box, Card, CardContent, Collapse, Container, List, ListItem, TextField, Typography} from "@mui/material";
+import {Box, Card, CardContent, Collapse, Container, Divider, List, ListItem, TextField, Typography} from "@mui/material";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { baseUrl } from "../constants";
@@ -54,13 +54,13 @@ const ListingPage = () => {
     }}
   >
       <Typography variant="h3" align="center">
-        Listings
+        Orders listing
       </Typography>
+      <Divider />
       <List>
-        {listings.map((listing: any) => {
-            
+        {listings.map((listing: any) => {     
           return (
-           <ListingPageitem listing={listing} />
+           <ListingPageitem listing={listing} token={token}/>
           )
         } 
         )}
