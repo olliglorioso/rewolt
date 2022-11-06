@@ -116,33 +116,40 @@ router.get("/api/listing", async (req, res) => {
 })
 
 router.post("/api/listing", async (req, res) => {
-  if(!req.user) {
-    return res.status(401).json({
-      message: "You must be logged in",
+  try {  
+    if(!req.user) {
+      return res.status(401).json({
+        message: "You must be logged in",
+      });
+    }
+    console.log(req.body)
+    const { dropoffId, title, category, price } = req.body as {
+      dropoffId: string;
+      title: string;
+      category: string;
+      price: number;
+    };
+    const dropoff = await Dropoff.findById(dropoffId);
+    if (!dropoff) {
+      return res.status(400).json({
+        message: "Dropoff not found",
+      });
+    }
+    const order = new Order({
+      dropoff,
+      user: req.user,
+      title: title,
+      category: category,
+      price,
+      status: "pending"
     });
+    await order.save();
+    console.log("ready")
+    return res.status(200).json({ "dog": "cat" })
+  } catch (e) {
+    console.log(e)
+    return res.status(400)
   }
-  const { dropoffId, title, category, price } = req.body as {
-    dropoffId: string;
-    title: string;
-    category: string;
-    price: number;
-  };
-  const dropoff = await Dropoff.findById(dropoffId);
-  if (!dropoff) {
-    return res.status(400).json({
-      message: "Dropoff not found",
-    });
-  }
-
-  const order = new Order({
-    dropoff,
-    user: req.user,
-    title: title,
-    category: category,
-    price,
-    status: "pending"
-  });
-  return await order.save();
 });
 
 router.post("/api/order", async (req, res) => {
