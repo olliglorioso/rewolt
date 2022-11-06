@@ -1,14 +1,20 @@
 import React, { useEffect } from "react";
-import {Box, Card, CardContent, Container, List, ListItem, Typography} from "@mui/material";
+import {Box, Card, CardContent, Collapse, Container, List, ListItem, TextField, Typography} from "@mui/material";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { baseUrl } from "../constants";
+import { Link } from "react-router-dom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { styled } from '@mui/material/styles';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import ListingPageitem from "./ListingPageItem";
 
 
 const ListingPage = () => {
   const [listings, setListings] = React.useState([]);
 
   const token  = useSelector((state: any) => state.token);
+  
 
   useEffect(() => {
     let isMounted = true;
@@ -37,7 +43,6 @@ const ListingPage = () => {
       flexDirection: "column",
       bgcolor: "white",
       maxWidth: {"md:": 800, "xs": 300},
-      maxHeight: 500,
       borderRadius: 5,
       boxShadow: 3,
       py: 10,
@@ -49,37 +54,16 @@ const ListingPage = () => {
     }}
   >
       <Typography variant="h3" align="center">
-        Listing
+        Listings
       </Typography>
       <List>
-        {listings.map((listing: any) => (
-          <ListItem key={listing.id}>
-            <Card sx={{
-              width: "100%",
-            }}>
-              <CardContent sx={{
-              width: "100%",
-            }}>
-                <Box width="80%" sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between"
-                }}>
-                  <Typography variant="h5" component="div">
-                    {listing.title}
-                  </Typography>
-                  <Typography variant="h5" fontWeight="bold">
-                    {listing.price} €
-                  </Typography>
-                </Box>
-                <Typography variant="body2">
-                  {listing.category}
-                </Typography>
-              </ CardContent>
-              
-            </Card>
-          </ListItem>
-        ))}
+        {listings.map((listing: any) => {
+            
+          return (
+           <ListingPageitem listing={listing} />
+          )
+        } 
+        )}
       </List>
 
     </Box>
